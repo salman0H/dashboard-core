@@ -1,0 +1,20 @@
+{
+  "pageTitle": "Substation Diagram",
+  "pageSubtitle": "SVG-based electrical substation canvas",
+  "loading": "Loading diagram…",
+  "error": "Failed to load substation data",
+  "zoomIn": "Zoom in",
+  "zoomOut": "Zoom out",
+  "fitView": "Fit to screen",
+  "componentDetails": "Component details",
+  "componentId": "ID",
+  "componentType": "Type",
+  "componentStatus": "Status",
+  "voltage": "Voltage",
+  "current": "Current",
+  "power": "Power",
+  "online": "Online",
+  "offline": "Offline",
+  "fault": "Fault",
+  "maintenance": "Maintenance"
+}

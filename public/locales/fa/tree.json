@@ -1,0 +1,21 @@
+{
+  "folderTree": "درخت پوشه‌ها",
+  "treeStructure": "ساختار درختی",
+  "searchPlaceholder": "جستجو...",
+  "addSubfolder": "افزودن زیرپوشه",
+  "showChildren": "نمایش زیرمجموعه‌ها",
+  "copyInfo": "کپی اطلاعات",
+  "nodeDetails": "جزئیات گره",
+  "name": "نام",
+  "type": "نوع",
+  "owner": "مالک",
+  "createdDate": "تاریخ ایجاد",
+  "size": "حجم",
+  "permissions": "دسترسی‌ها",
+  "description": "توضیحات",
+  "id": "شناسه",
+  "selectNodeHint": "یک گره را از منوی سمت راست انتخاب کنید",
+  "noData": "داده‌ای موجود نیست",
+  "error": "خطا",
+  "loading": "در حال بارگذاری..."
+}

@@ -1,0 +1,20 @@
+{
+  "pageTitle": "دیاگرام پست",
+  "pageSubtitle": "بوم SVG برای پست‌های برق",
+  "loading": "در حال بارگذاری دیاگرام…",
+  "error": "بارگذاری داده‌های پست ناموفق بود",
+  "zoomIn": "بزرگ‌نمایی",
+  "zoomOut": "کوچک‌نمایی",
+  "fitView": "متناسب با صفحه",
+  "componentDetails": "جزئیات المان",
+  "componentId": "شناسه",
+  "componentType": "نوع",
+  "componentStatus": "وضعیت",
+  "voltage": "ولتاژ",
+  "current": "جریان",
+  "power": "توان",
+  "online": "آنلاین",
+  "offline": "آفلاین",
+  "fault": "خطا",
+  "maintenance": "تعمیر و نگهداری"
+}

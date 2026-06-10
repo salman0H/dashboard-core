@@ -1,0 +1,2729 @@
+{
+  "menus": [
+    {
+      "id": "main",
+      "labelKey": "mainSection",
+      "items": [
+        {
+          "id": "dashboard",
+          "labelKey": "dashboard",
+          "icon": "ti-layout-dashboard",
+          "route": "/"
+        },
+        {
+          "id": "flow-progress",
+          "labelKey": "flowProgress",
+          "icon": "ti-chart-bar",
+          "route": "/flow-progress"
+        },
+        {
+          "id": "tree-node",
+          "labelKey": "treeNode",
+          "icon": "ti-folder",
+          "route": "/tree-node"
+        },
+        {
+          "id": "substation",
+          "labelKey": "substation",
+          "icon": "ti-topology-ring",
+          "route": "/substation"
+        }
+      ]
+    }
+  ],
+  "translations": {
+    "en": {
+      "common": {
+        "search": "Search…",
+        "notifications": "Notifications",
+        "settings": "Settings",
+        "userName": "Admin User",
+        "userRole": "Super Admin",
+        "userMenuAriaLabel": "User menu",
+        "loading": "Loading…",
+        "error": "Something went wrong"
+      },
+      "nav": {
+        "mainNavAriaLabel": "Main navigation",
+        "dashboard": "Dashboard",
+        "flowProgress": "Flow Progress",
+        "treeNode": "Tree Node",
+        "substation": "Substation",
+        "settings": "Settings",
+        "newBadge": "New"
+      },
+      "dashboard": {
+        "pageTitle": "Dashboard",
+        "pageSubtitle": "CoreUI — modular dashboard shell with three integrated projects",
+        "projectsLabel": "Projects",
+        "coreLabel": "Core features",
+        "stackLabel": "Tech stack",
+        "flowTitle": "Flow Progress",
+        "flowDesc": "Interactive node-based flowchart builder with ELK auto-layout and inline form editing",
+        "treeTitle": "Tree Node",
+        "treeDesc": "Hierarchical file-tree explorer with context menus and node detail panel",
+        "substationTitle": "Substation Diagram",
+        "substationDesc": "SVG-based electrical substation canvas with live data from json-server",
+        "featI18n": "i18n — EN / FA",
+        "featRtl": "Full RTL / LTR",
+        "featCsp": "CSP compliant",
+        "featModular": "Modular pages",
+        "featJson": "json-server API",
+        "featTs": "TypeScript strict",
+        "emptySlot": "Dashboard Core",
+        "emptySlotHint": "Navigate to a project above"
+      }
+    },
+    "fa": {
+      "common": {
+        "search": "جستجو…",
+        "notifications": "اعلان‌ها",
+        "settings": "تنظیمات",
+        "userName": "مدیر سیستم",
+        "userRole": "سوپر ادمین",
+        "userMenuAriaLabel": "منوی کاربر",
+        "loading": "در حال بارگذاری…",
+        "error": "خطایی رخ داد"
+      },
+      "nav": {
+        "mainNavAriaLabel": "ناوبری اصلی",
+        "dashboard": "داشبورد",
+        "flowProgress": "فلوچارت",
+        "treeNode": "درخت گره‌ها",
+        "substation": "دیاگرام پست",
+        "settings": "تنظیمات",
+        "newBadge": "جدید"
+      },
+      "dashboard": {
+        "pageTitle": "داشبورد",
+        "pageSubtitle": "CoreUI — پوسته داشبورد ماژولار با سه پروژه یکپارچه",
+        "projectsLabel": "پروژه‌ها",
+        "coreLabel": "ویژگی‌های هسته",
+        "stackLabel": "پشته فناوری",
+        "flowTitle": "فلوچارت",
+        "flowDesc": "سازنده فلوچارت تعاملی مبتنی بر گره با چیدمان خودکار ELK",
+        "treeTitle": "درخت گره‌ها",
+        "treeDesc": "مرورگر درختی سلسله‌مراتبی با منوی راست‌کلیک و پنل جزئیات",
+        "substationTitle": "دیاگرام پست",
+        "substationDesc": "بوم SVG برای پست‌های برق با داده زنده از json-server",
+        "featI18n": "چندزبانه — فارسی / انگلیسی",
+        "featRtl": "پشتیبانی کامل RTL/LTR",
+        "featCsp": "سازگار با CSP",
+        "featModular": "صفحات ماژولار",
+        "featJson": "API با json-server",
+        "featTs": "TypeScript سخت‌گیر",
+        "emptySlot": "هسته داشبورد",
+        "emptySlotHint": "از بالا یک پروژه را انتخاب کنید"
+      }
+    }
+  },
+  "settings": {
+    "defaultLang": "en",
+    "supportedLangs": [
+      "en",
+      "fa"
+    ],
+    "appVersion": "2.1.0"
+  },
+  "nodes": [
+    {
+      "id": "start_001",
+      "position": {
+        "x": -190,
+        "y": 90.33333333333331
+      },
+      "type": "start",
+      "parentId": null,
+      "formDataId": "fd_start"
+    },
+    {
+      "id": "dec_001",
+      "position": {
+        "x": 218,
+        "y": 824.6666666666667
+      },
+      "type": "decision",
+      "parentId": null,
+      "formDataId": "fd_dec1"
+    },
+    {
+      "id": "dec_002_l",
+      "position": {
+        "x": 962.9999999999998,
+        "y": 532
+      },
+      "type": "decision",
+      "parentId": null,
+      "formDataId": "fd_dec2"
+    },
+    {
+      "id": "dec_002_r",
+      "position": {
+        "x": 1389.6666666666663,
+        "y": 352
+      },
+      "type": "decision",
+      "parentId": null,
+      "formDataId": "fd_dec3"
+    },
+    {
+      "id": "proc_001",
+      "position": {
+        "x": 286.33333333333326,
+        "y": 727
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc1"
+    },
+    {
+      "id": "dec_003_l",
+      "position": {
+        "x": 972.9275518380917,
+        "y": 674.9621262392515
+      },
+      "type": "decision",
+      "parentId": null,
+      "formDataId": "fd_dec4"
+    },
+    {
+      "id": "dec_003_r",
+      "position": {
+        "x": 1402.9999999999998,
+        "y": 532
+      },
+      "type": "decision",
+      "parentId": null,
+      "formDataId": "fd_dec5"
+    },
+    {
+      "id": "proc_002",
+      "position": {
+        "x": 1136.9999999999998,
+        "y": 334
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc2"
+    },
+    {
+      "id": "input_001",
+      "position": {
+        "x": 1305.3333333333333,
+        "y": 1001
+      },
+      "type": "input",
+      "parentId": null,
+      "formDataId": "fd_input1"
+    },
+    {
+      "id": "proc_003",
+      "position": {
+        "x": 1066.3341194553145,
+        "y": 689.3072410739936
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc3"
+    },
+    {
+      "id": "dec_004",
+      "position": {
+        "x": 1413.9655249917241,
+        "y": 675.8370932273272
+      },
+      "type": "decision",
+      "parentId": null,
+      "formDataId": "fd_dec6"
+    },
+    {
+      "id": "proc_004",
+      "position": {
+        "x": 583.240806642942,
+        "y": 550.6144721233691
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc4"
+    },
+    {
+      "id": "input_002",
+      "position": {
+        "x": 1076,
+        "y": 829.0000000000001
+      },
+      "type": "input",
+      "parentId": null,
+      "formDataId": "fd_input2"
+    },
+    {
+      "id": "proc_005",
+      "position": {
+        "x": 1398.3395020423275,
+        "y": 910.3670200795647
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc5"
+    },
+    {
+      "id": "dec_005",
+      "position": {
+        "x": 316.33333333333326,
+        "y": 892
+      },
+      "type": "decision",
+      "parentId": null,
+      "formDataId": "fd_dec7"
+    },
+    {
+      "id": "proc_006",
+      "position": {
+        "x": 958.5073901865667,
+        "y": 1068.74841997183
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc6"
+    },
+    {
+      "id": "input_003",
+      "position": {
+        "x": 739.7937370480066,
+        "y": 866.1179837191874
+      },
+      "type": "input",
+      "parentId": null,
+      "formDataId": "fd_input3"
+    },
+    {
+      "id": "dec_006",
+      "position": {
+        "x": 1450.6023249629852,
+        "y": 1077.8209745130262
+      },
+      "type": "decision",
+      "parentId": null,
+      "formDataId": "fd_dec8"
+    },
+    {
+      "id": "proc_007",
+      "position": {
+        "x": 1430.3303649712814,
+        "y": 1440.577582131858
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc7"
+    },
+    {
+      "id": "proc_008",
+      "position": {
+        "x": 12,
+        "y": 1087
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc8"
+    },
+    {
+      "id": "proc_009",
+      "position": {
+        "x": 299.6666666666665,
+        "y": 1087
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc9"
+    },
+    {
+      "id": "input_004",
+      "position": {
+        "x": 1221.629749892181,
+        "y": 900.2096166847729
+      },
+      "type": "input",
+      "parentId": null,
+      "formDataId": "fd_input4"
+    },
+    {
+      "id": "start_002",
+      "position": {
+        "x": 970.0787771650122,
+        "y": 1248.8098202365513
+      },
+      "type": "start",
+      "parentId": null,
+      "formDataId": "fd_start2"
+    },
+    {
+      "id": "proc_010",
+      "position": {
+        "x": 519.6666666666664,
+        "y": 1069.5
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc10"
+    },
+    {
+      "id": "dec_007",
+      "position": {
+        "x": 769.1099315168844,
+        "y": 1071.1169210120652
+      },
+      "type": "decision",
+      "parentId": null,
+      "formDataId": "fd_dec9"
+    },
+    {
+      "id": "proc_011",
+      "position": {
+        "x": 1412.9999999999998,
+        "y": 1657
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc11"
+    },
+    {
+      "id": "input_005",
+      "position": {
+        "x": 12,
+        "y": 1617
+      },
+      "type": "input",
+      "parentId": null,
+      "formDataId": "fd_input5"
+    },
+    {
+      "id": "dec_008",
+      "position": {
+        "x": 329.6666666666665,
+        "y": 1252
+      },
+      "type": "decision",
+      "parentId": null,
+      "formDataId": "fd_dec10"
+    },
+    {
+      "id": "proc_012",
+      "position": {
+        "x": 1081.5443369504849,
+        "y": 1465.8092251809326
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc12"
+    },
+    {
+      "id": "proc_013",
+      "position": {
+        "x": 741.5001655930779,
+        "y": 1265.2232637189277
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc13"
+    },
+    {
+      "id": "proc_014",
+      "position": {
+        "x": 313,
+        "y": 1447
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc14"
+    },
+    {
+      "id": "input_006",
+      "position": {
+        "x": 93,
+        "y": 1432
+      },
+      "type": "input",
+      "parentId": null,
+      "formDataId": "fd_input6"
+    },
+    {
+      "id": "proc_015",
+      "position": {
+        "x": 519.6666666666664,
+        "y": 1319.5
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc15"
+    },
+    {
+      "id": "start_003",
+      "position": {
+        "x": 969.6666666666664,
+        "y": 1673.875
+      },
+      "type": "start",
+      "parentId": null,
+      "formDataId": "fd_start3"
+    },
+    {
+      "id": "proc_016",
+      "position": {
+        "x": 702.9999999999998,
+        "y": 1818.6666666666665
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc16"
+    },
+    {
+      "id": "dec_009",
+      "position": {
+        "x": 763.9811545637832,
+        "y": 1428.3439141673452
+      },
+      "type": "decision",
+      "parentId": null,
+      "formDataId": "fd_dec11"
+    },
+    {
+      "id": "proc_017",
+      "position": {
+        "x": 693.94834461158,
+        "y": 1615.864584049141
+      },
+      "type": "process",
+      "parentId": null,
+      "formDataId": "fd_proc17"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "start_001",
+      "target": "dec_001",
+      "type": "step"
+    },
+    {
+      "id": "e2",
+      "source": "dec_001",
+      "target": "dec_002_l",
+      "type": "step"
+    },
+    {
+      "id": "e3",
+      "source": "dec_001",
+      "target": "dec_002_r",
+      "type": "step"
+    },
+    {
+      "id": "e4",
+      "source": "dec_002_l",
+      "target": "proc_001",
+      "type": "step"
+    },
+    {
+      "id": "e5",
+      "source": "dec_002_l",
+      "target": "dec_003_l",
+      "type": "step"
+    },
+    {
+      "id": "e6",
+      "source": "dec_002_r",
+      "target": "dec_003_r",
+      "type": "step"
+    },
+    {
+      "id": "e7",
+      "source": "dec_002_r",
+      "target": "proc_002",
+      "type": "step"
+    },
+    {
+      "id": "e8",
+      "source": "dec_003_l",
+      "target": "input_001",
+      "type": "step"
+    },
+    {
+      "id": "e9",
+      "source": "dec_003_l",
+      "target": "proc_003",
+      "type": "step"
+    },
+    {
+      "id": "e10",
+      "source": "dec_003_r",
+      "target": "dec_004",
+      "type": "step"
+    },
+    {
+      "id": "e11",
+      "source": "dec_003_r",
+      "target": "proc_004",
+      "type": "step"
+    },
+    {
+      "id": "e12",
+      "source": "dec_004",
+      "target": "input_002",
+      "type": "step"
+    },
+    {
+      "id": "e13",
+      "source": "dec_004",
+      "target": "proc_005",
+      "type": "step"
+    },
+    {
+      "id": "e14",
+      "source": "proc_001",
+      "target": "dec_005",
+      "type": "step"
+    },
+    {
+      "id": "e15",
+      "source": "proc_003",
+      "target": "proc_006",
+      "type": "step"
+    },
+    {
+      "id": "e16",
+      "source": "proc_004",
+      "target": "input_003",
+      "type": "step"
+    },
+    {
+      "id": "e17",
+      "source": "proc_005",
+      "target": "dec_006",
+      "type": "step"
+    },
+    {
+      "id": "e18",
+      "source": "dec_005",
+      "target": "proc_008",
+      "type": "step"
+    },
+    {
+      "id": "e19",
+      "source": "dec_005",
+      "target": "proc_009",
+      "type": "step"
+    },
+    {
+      "id": "e20",
+      "source": "dec_006",
+      "target": "proc_007",
+      "type": "step"
+    },
+    {
+      "id": "e21",
+      "source": "dec_006",
+      "target": "input_004",
+      "type": "step"
+    },
+    {
+      "id": "e22",
+      "source": "proc_006",
+      "target": "start_002",
+      "type": "step"
+    },
+    {
+      "id": "e23",
+      "source": "input_001",
+      "target": "proc_010",
+      "type": "step"
+    },
+    {
+      "id": "e24",
+      "source": "input_003",
+      "target": "dec_007",
+      "type": "step"
+    },
+    {
+      "id": "e25",
+      "source": "proc_007",
+      "target": "proc_011",
+      "type": "step"
+    },
+    {
+      "id": "e26",
+      "source": "proc_008",
+      "target": "input_005",
+      "type": "step"
+    },
+    {
+      "id": "e27",
+      "source": "proc_009",
+      "target": "dec_008",
+      "type": "step"
+    },
+    {
+      "id": "e28",
+      "source": "start_002",
+      "target": "proc_012",
+      "type": "step"
+    },
+    {
+      "id": "e29",
+      "source": "dec_007",
+      "target": "proc_013",
+      "type": "step"
+    },
+    {
+      "id": "e30",
+      "source": "dec_008",
+      "target": "proc_014",
+      "type": "step"
+    },
+    {
+      "id": "e31",
+      "source": "dec_008",
+      "target": "input_006",
+      "type": "step"
+    },
+    {
+      "id": "e32",
+      "source": "proc_010",
+      "target": "proc_015",
+      "type": "step"
+    },
+    {
+      "id": "e33",
+      "source": "proc_012",
+      "target": "start_003",
+      "type": "step"
+    },
+    {
+      "id": "e34",
+      "source": "proc_011",
+      "target": "proc_016",
+      "type": "step"
+    },
+    {
+      "id": "e35",
+      "source": "proc_013",
+      "target": "dec_009",
+      "type": "step"
+    },
+    {
+      "id": "e36",
+      "source": "dec_009",
+      "target": "proc_017",
+      "type": "step"
+    },
+    {
+      "id": "e37",
+      "source": "proc_014",
+      "target": "proc_017",
+      "type": "step"
+    },
+    {
+      "id": "e38",
+      "source": "input_005",
+      "target": "proc_016",
+      "type": "step"
+    },
+    {
+      "id": "e39",
+      "source": "proc_015",
+      "target": "dec_009",
+      "type": "step"
+    },
+    {
+      "id": "e40",
+      "source": "proc_017",
+      "target": "proc_016",
+      "type": "step"
+    },
+    {
+      "id": "r6906Vr5aFU",
+      "source": "start_002",
+      "target": "input_004",
+      "type": "step"
+    }
+  ],
+  "formData": [
+    {
+      "nodeId": "fd_start",
+      "label": "شروع - لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ",
+      "executionProcess": "start_main",
+      "nextProcess": [
+        "dec_001"
+      ],
+      "previousProcess": null,
+      "finalProcess": "",
+      "type": "start",
+      "description": "این گره شروع است. لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.",
+      "id": "fd_start"
+    },
+    {
+      "nodeId": "fd_dec1",
+      "label": "تصمیم اول: بررسی وضعیت ورودی",
+      "executionProcess": "decision_1",
+      "nextProcess": [
+        "dec_002_l",
+        "dec_002_r"
+      ],
+      "previousProcess": {
+        "id": "start_001",
+        "name": "start_001",
+        "type": "start"
+      },
+      "finalProcess": "conditional",
+      "type": "decision",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این تصمیم دو شاخه دارد.",
+      "id": "fd_dec1"
+    },
+    {
+      "nodeId": "fd_dec2",
+      "label": "تصمیم دوم (چپ): بررسی داده‌های پایگاه",
+      "executionProcess": "decision_2_left",
+      "nextProcess": [
+        "proc_001",
+        "dec_003_l"
+      ],
+      "previousProcess": {
+        "id": "dec_001",
+        "name": "dec_001",
+        "type": "decision"
+      },
+      "finalProcess": "conditional",
+      "type": "decision",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.",
+      "id": "fd_dec2"
+    },
+    {
+      "nodeId": "fd_dec3",
+      "label": "تصمیم دوم (راست): بررسی امنیت",
+      "executionProcess": "decision_2_right",
+      "nextProcess": [
+        "dec_003_r",
+        "proc_002"
+      ],
+      "previousProcess": {
+        "id": "dec_001",
+        "name": "dec_001",
+        "type": "decision"
+      },
+      "finalProcess": "conditional",
+      "type": "decision",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است.",
+      "id": "fd_dec3"
+    },
+    {
+      "nodeId": "fd_proc1",
+      "label": "فرآیند پردازش داده‌های خام",
+      "executionProcess": "process_raw",
+      "nextProcess": [
+        "dec_005"
+      ],
+      "previousProcess": {
+        "id": "dec_002_l",
+        "name": "dec_002_l",
+        "type": "decision"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
+      "id": "fd_proc1"
+    },
+    {
+      "nodeId": "fd_dec4",
+      "label": "تصمیم سوم (چپ): تطبیق با الگو",
+      "executionProcess": "decision_3_left",
+      "nextProcess": [
+        "input_001",
+        "proc_003"
+      ],
+      "previousProcess": {
+        "id": "dec_002_l",
+        "name": "dec_002_l",
+        "type": "decision"
+      },
+      "finalProcess": "conditional",
+      "type": "decision",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد.",
+      "id": "fd_dec4"
+    },
+    {
+      "nodeId": "fd_dec5",
+      "label": "تصمیم سوم (راست): سطح دسترسی",
+      "executionProcess": "decision_3_right",
+      "nextProcess": [
+        "dec_004",
+        "proc_004"
+      ],
+      "previousProcess": {
+        "id": "dec_002_r",
+        "name": "dec_002_r",
+        "type": "decision"
+      },
+      "finalProcess": "conditional",
+      "type": "decision",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.",
+      "id": "fd_dec5"
+    },
+    {
+      "nodeId": "fd_proc2",
+      "label": "فرآیند ثبت وقایع امنیتی",
+      "executionProcess": "security_log",
+      "nextProcess": [],
+      "previousProcess": {
+        "id": "dec_002_r",
+        "name": "dec_002_r",
+        "type": "decision"
+      },
+      "finalProcess": "yes",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این فرآیند پایانی برای شاخه راست است.",
+      "id": "fd_proc2"
+    },
+    {
+      "nodeId": "fd_input1",
+      "label": "ورودی: دریافت فایل پیکربندی",
+      "executionProcess": "input_config",
+      "nextProcess": [
+        "proc_010"
+      ],
+      "previousProcess": {
+        "id": "dec_003_l",
+        "name": "dec_003_l",
+        "type": "decision"
+      },
+      "finalProcess": "no",
+      "type": "input",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این ورودی برای تنظیمات اولیه استفاده می‌شود.",
+      "id": "fd_input1"
+    },
+    {
+      "nodeId": "fd_proc3",
+      "label": "فرآیند تبدیل داده‌ها",
+      "executionProcess": "transform_data",
+      "nextProcess": [
+        "proc_006"
+      ],
+      "previousProcess": {
+        "id": "dec_003_l",
+        "name": "dec_003_l",
+        "type": "decision"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
+      "id": "fd_proc3"
+    },
+    {
+      "nodeId": "fd_dec6",
+      "label": "تصمیم چهارم: اعتبارسنجی نهایی",
+      "executionProcess": "decision_4",
+      "nextProcess": [
+        "input_002",
+        "proc_005"
+      ],
+      "previousProcess": {
+        "id": "dec_003_r",
+        "name": "dec_003_r",
+        "type": "decision"
+      },
+      "finalProcess": "conditional",
+      "type": "decision",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد.",
+      "id": "fd_dec6"
+    },
+    {
+      "nodeId": "fd_proc4",
+      "label": "فرآیند بهینه‌سازی",
+      "executionProcess": "optimize",
+      "nextProcess": [
+        "input_003"
+      ],
+      "previousProcess": {
+        "id": "dec_003_r",
+        "name": "dec_003_r",
+        "type": "decision"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این فرآیند به بهینه‌سازی کد می‌پردازد.",
+      "id": "fd_proc4"
+    },
+    {
+      "nodeId": "fd_input2",
+      "label": "ورودی: اطلاعات کاربر نهایی",
+      "executionProcess": "user_input",
+      "nextProcess": [],
+      "previousProcess": {
+        "id": "dec_004",
+        "name": "dec_004",
+        "type": "decision"
+      },
+      "finalProcess": "yes",
+      "type": "input",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این ورودی پایانی برای این شاخه است.",
+      "id": "fd_input2"
+    },
+    {
+      "nodeId": "fd_proc5",
+      "label": "فرآیند ذخیره‌سازی موقت",
+      "executionProcess": "cache_data",
+      "nextProcess": [
+        "dec_006"
+      ],
+      "previousProcess": {
+        "id": "dec_004",
+        "name": "dec_004",
+        "type": "decision"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.",
+      "id": "fd_proc5"
+    },
+    {
+      "nodeId": "fd_proc6",
+      "label": "فرآیند ادغام داده‌ها",
+      "executionProcess": "merge",
+      "nextProcess": [
+        "start_002"
+      ],
+      "previousProcess": {
+        "id": "proc_003",
+        "name": "proc_003",
+        "type": "process"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این فرآیند داده‌های مختلف را ادغام می‌کند.",
+      "id": "fd_proc6"
+    },
+    {
+      "nodeId": "fd_input3",
+      "label": "ورودی: پارامترهای ورکفرانت",
+      "executionProcess": "workfront_params",
+      "nextProcess": [
+        "dec_007"
+      ],
+      "previousProcess": {
+        "id": "proc_004",
+        "name": "proc_004",
+        "type": "process"
+      },
+      "finalProcess": "no",
+      "type": "input",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این ورودی برای تنظیم پارامترها استفاده می‌شود.",
+      "id": "fd_input3"
+    },
+    {
+      "nodeId": "fd_dec7",
+      "label": "تصمیم پنجم: بررسی خروجی",
+      "executionProcess": "decision_5",
+      "nextProcess": [
+        "proc_008",
+        "proc_009"
+      ],
+      "previousProcess": {
+        "id": "proc_001",
+        "name": "proc_001",
+        "type": "process"
+      },
+      "finalProcess": "conditional",
+      "type": "decision",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این تصمیم دو شاخه برای پردازش بیشتر دارد.",
+      "id": "fd_dec7"
+    },
+    {
+      "nodeId": "fd_dec8",
+      "label": "تصمیم ششم: اعمال محدودیت‌ها",
+      "executionProcess": "decision_6",
+      "nextProcess": [
+        "proc_007",
+        "input_004"
+      ],
+      "previousProcess": {
+        "id": "proc_005",
+        "name": "proc_005",
+        "type": "process"
+      },
+      "finalProcess": "conditional",
+      "type": "decision",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.",
+      "id": "fd_dec8"
+    },
+    {
+      "nodeId": "fd_proc7",
+      "label": "فرآیند نهایی‌سازی",
+      "executionProcess": "finalize",
+      "nextProcess": [
+        "proc_011"
+      ],
+      "previousProcess": {
+        "id": "dec_006",
+        "name": "dec_006",
+        "type": "decision"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این فرآیند آماده‌سازی نهایی را انجام می‌دهد.",
+      "id": "fd_proc7"
+    },
+    {
+      "nodeId": "fd_proc8",
+      "label": "فرآیند گزارش‌گیری",
+      "executionProcess": "report",
+      "nextProcess": [
+        "input_005"
+      ],
+      "previousProcess": {
+        "id": "dec_005",
+        "name": "dec_005",
+        "type": "decision"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد.",
+      "id": "fd_proc8"
+    },
+    {
+      "nodeId": "fd_proc9",
+      "label": "فرآیند بایگانی",
+      "executionProcess": "archive",
+      "nextProcess": [
+        "dec_008"
+      ],
+      "previousProcess": {
+        "id": "dec_005",
+        "name": "dec_005",
+        "type": "decision"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این فرآیند داده‌های قدیمی را بایگانی می‌کند.",
+      "id": "fd_proc9"
+    },
+    {
+      "nodeId": "fd_start2",
+      "label": "شروع مجدد - لورم ایپسوم",
+      "executionProcess": "restart_flow",
+      "nextProcess": [
+        "proc_012"
+      ],
+      "previousProcess": {
+        "id": "proc_006",
+        "name": "proc_006",
+        "type": "process"
+      },
+      "finalProcess": "",
+      "type": "start",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این یک نقطه شروع دیگر در نمودار است.",
+      "id": "fd_start2"
+    },
+    {
+      "nodeId": "fd_proc10",
+      "label": "فرآیند بارگذاری پیکربندی",
+      "executionProcess": "load_config",
+      "nextProcess": [
+        "proc_015"
+      ],
+      "previousProcess": {
+        "id": "input_001",
+        "name": "input_001",
+        "type": "input"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.",
+      "id": "fd_proc10"
+    },
+    {
+      "nodeId": "fd_dec9",
+      "label": "تصمیم هفتم: خاتمه یا ادامه",
+      "executionProcess": "decision_7",
+      "nextProcess": [
+        "proc_013"
+      ],
+      "previousProcess": {
+        "id": "input_003",
+        "name": "input_003",
+        "type": "input"
+      },
+      "finalProcess": "conditional",
+      "type": "decision",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این تصمیم مسیر نهایی را مشخص می‌کند.",
+      "id": "fd_dec9"
+    },
+    {
+      "nodeId": "fd_input4",
+      "label": "ورودی: مقادیر پویا",
+      "executionProcess": "dynamic_input",
+      "nextProcess": [],
+      "previousProcess": {
+        "id": "dec_006",
+        "name": "dec_006",
+        "type": "decision"
+      },
+      "finalProcess": "yes",
+      "type": "input",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این ورودی ترمینال برای این شاخه است.",
+      "id": "fd_input4"
+    },
+    {
+      "nodeId": "fd_proc11",
+      "label": "فرآیند تحویل خروجی",
+      "executionProcess": "deliver",
+      "nextProcess": [
+        "proc_016"
+      ],
+      "previousProcess": {
+        "id": "proc_007",
+        "name": "proc_007",
+        "type": "process"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.",
+      "id": "fd_proc11"
+    },
+    {
+      "nodeId": "fd_input5",
+      "label": "ورودی: گزارش نهایی",
+      "executionProcess": "final_report",
+      "nextProcess": [
+        "proc_016"
+      ],
+      "previousProcess": {
+        "id": "proc_008",
+        "name": "proc_008",
+        "type": "process"
+      },
+      "finalProcess": "no",
+      "type": "input",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این ورودی برای تکمیل گزارش است.",
+      "id": "fd_input5"
+    },
+    {
+      "nodeId": "fd_dec10",
+      "label": "تصمیم هشتم: بررسی نهایی",
+      "executionProcess": "decision_8",
+      "nextProcess": [
+        "proc_014",
+        "input_006"
+      ],
+      "previousProcess": {
+        "id": "proc_009",
+        "name": "proc_009",
+        "type": "process"
+      },
+      "finalProcess": "conditional",
+      "type": "decision",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد.",
+      "id": "fd_dec10"
+    },
+    {
+      "nodeId": "fd_proc12",
+      "label": "فرآیند بازنشانی سیستم",
+      "executionProcess": "reset",
+      "nextProcess": [
+        "start_003"
+      ],
+      "previousProcess": {
+        "id": "start_002",
+        "name": "start_002",
+        "type": "start"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این فرآیند سیستم را بازنشانی می‌کند.",
+      "id": "fd_proc12"
+    },
+    {
+      "nodeId": "fd_proc13",
+      "label": "فرآیند خاتمه خطا",
+      "executionProcess": "error_termination",
+      "nextProcess": [
+        "dec_009"
+      ],
+      "previousProcess": {
+        "id": "dec_007",
+        "name": "dec_007",
+        "type": "decision"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این فرآیند خطاها را مدیریت می‌کند.",
+      "id": "fd_proc13"
+    },
+    {
+      "nodeId": "fd_proc14",
+      "label": "فرآیند ذخیره نهایی",
+      "executionProcess": "save_final",
+      "nextProcess": [
+        "proc_017"
+      ],
+      "previousProcess": {
+        "id": "dec_008",
+        "name": "dec_008",
+        "type": "decision"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.",
+      "id": "fd_proc14"
+    },
+    {
+      "nodeId": "fd_input6",
+      "label": "ورودی: تأیید نهایی",
+      "executionProcess": "final_approval",
+      "nextProcess": [],
+      "previousProcess": {
+        "id": "dec_008",
+        "name": "dec_008",
+        "type": "decision"
+      },
+      "finalProcess": "yes",
+      "type": "input",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این ورودی پایان کار است.",
+      "id": "fd_input6"
+    },
+    {
+      "nodeId": "fd_proc15",
+      "label": "فرآیند اعمال تنظیمات",
+      "executionProcess": "apply_settings",
+      "nextProcess": [
+        "dec_009"
+      ],
+      "previousProcess": {
+        "id": "proc_010",
+        "name": "proc_010",
+        "type": "process"
+      },
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این فرآیند تنظیمات نهایی را اعمال می‌کند.",
+      "id": "fd_proc15"
+    },
+    {
+      "nodeId": "fd_start3",
+      "label": "شروع مجدد سطح بالا",
+      "executionProcess": "restart_high",
+      "nextProcess": [],
+      "previousProcess": {
+        "id": "proc_012",
+        "name": "proc_012",
+        "type": "process"
+      },
+      "finalProcess": "yes",
+      "type": "start",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این آخرین شروع در نمودار است و پس از آن خاتمه می‌یابد.",
+      "id": "fd_start3"
+    },
+    {
+      "nodeId": "fd_proc16",
+      "label": "فرآیند نهایی اتصال",
+      "executionProcess": "final_connection",
+      "nextProcess": [],
+      "previousProcess": [
+        {
+          "id": "proc_011",
+          "name": "proc_011",
+          "type": "process"
+        },
+        {
+          "id": "input_005",
+          "name": "input_005",
+          "type": "input"
+        },
+        {
+          "id": "proc_017",
+          "name": "proc_017",
+          "type": "process"
+        }
+      ],
+      "finalProcess": "yes",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این گره چند والد دارد و پایان‌دهنده همه مسیرهاست.",
+      "id": "fd_proc16"
+    },
+    {
+      "nodeId": "fd_dec11",
+      "label": "تصمیم نهایی: تطبیق با قوانین",
+      "executionProcess": "final_decision",
+      "nextProcess": [
+        "proc_017"
+      ],
+      "previousProcess": [
+        {
+          "id": "proc_013",
+          "name": "proc_013",
+          "type": "process"
+        },
+        {
+          "id": "proc_015",
+          "name": "proc_015",
+          "type": "process"
+        }
+      ],
+      "finalProcess": "conditional",
+      "type": "decision",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این تصمیم دو والد دارد و خروجی آن به proc_017 می‌رود.",
+      "id": "fd_dec11"
+    },
+    {
+      "nodeId": "fd_proc17",
+      "label": "فرآیند پایانی",
+      "executionProcess": "terminate",
+      "nextProcess": [
+        "proc_016"
+      ],
+      "previousProcess": [
+        {
+          "id": "proc_014",
+          "name": "proc_014",
+          "type": "process"
+        },
+        {
+          "id": "dec_009",
+          "name": "dec_009",
+          "type": "decision"
+        }
+      ],
+      "finalProcess": "no",
+      "type": "process",
+      "description": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است. این فرآیند به proc_016 منتهی می‌شود.",
+      "id": "fd_proc17"
+    }
+  ],
+  "treeData": [
+    {
+      "id": "1",
+      "name": "پوشه اصلی اول (سطح ۱)",
+      "icon": "folder",
+      "children": [
+        {
+          "id": "1.1",
+          "name": "پوشه فرعی (سطح ۲)",
+          "icon": "folder",
+          "children": [
+            {
+              "id": "1.1.1",
+              "name": "بخش مهندسی (سطح ۳)",
+              "icon": "folder",
+              "children": [
+                {
+                  "id": "1.1.1.1",
+                  "name": "فاز توسعه نرم‌افزار (سطح ۴)",
+                  "icon": "folder",
+                  "children": [
+                    {
+                      "id": "1.1.1.1.1",
+                      "name": "سورس کد اصلی (سطح ۵)",
+                      "icon": "code"
+                    },
+                    {
+                      "id": "1.1.1.1.2",
+                      "name": "پیکربندی گیت (سطح ۵)",
+                      "icon": "terminal"
+                    }
+                  ]
+                },
+                {
+                  "id": "1.1.1.2",
+                  "name": "طرح‌های گرافیکی (سطح ۴)",
+                  "icon": "image"
+                }
+              ]
+            },
+            {
+              "id": "1.1.2",
+              "name": "فایل صوتی پروژه‌ها",
+              "icon": "audio-lines"
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "name": "مستندات متنی",
+          "icon": "file-text"
+        },
+        {
+          "id": "1.3",
+          "name": "ویدیوهای آموزشی",
+          "icon": "video"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "پوشه اصلی دوم (سطح ۱)",
+      "icon": "folder",
+      "children": [
+        {
+          "id": "2.1",
+          "name": "پایگاه داده (سطح ۲)",
+          "icon": "database",
+          "children": [
+            {
+              "id": "2.1.1",
+              "name": "پشتیبان‌گیری (سطح ۳)",
+              "icon": "archive"
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "name": "اسناد مالی",
+          "icon": "banknote"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "تنظیمات زیرساخت (سطح ۱)",
+      "icon": "settings",
+      "children": [
+        {
+          "id": "3.1",
+          "name": "سرور لینوکس (سطح ۲)",
+          "icon": "server",
+          "children": [
+            {
+              "id": "3.1.1",
+              "name": "کانفیگ شبکه (سطح ۳)",
+              "icon": "network",
+              "children": [
+                {
+                  "id": "3.1.1.1",
+                  "name": "کلید امنیتی SSH (سطح ۴)",
+                  "icon": "key"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.2",
+          "name": "فایل لاگ خطاها",
+          "icon": "alert-circle"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "بایگانی قدیمی",
+      "icon": "package"
+    }
+  ],
+  "details": [
+    {
+      "id": "1",
+      "name": "پوشه اصلی اول (سطح ۱)",
+      "description": "ریشه اصلی درخت فایل با دسترسی حداکثری",
+      "type": "پوشه",
+      "createdDate": "1403/01/10",
+      "owner": "سلمان محمدی",
+      "size": "45.2 MB",
+      "permissions": "مدیر سیستم"
+    },
+    {
+      "id": "1.1",
+      "name": "پوشه فرعی (سطح ۲)",
+      "description": "پوشه سطح دوم زیرمجموعه ریشه اصلی اول",
+      "type": "پوشه",
+      "createdDate": "1403/01/12",
+      "owner": "علی کریمی",
+      "size": "32.1 MB",
+      "permissions": "خواندن و نوشتن"
+    },
+    {
+      "id": "1.1.1",
+      "name": "بخش مهندسی (سطح ۳)",
+      "description": "حاوی اطلاعات فنی و ساختاری پروژه اصلی",
+      "type": "پوشه",
+      "createdDate": "1403/01/15",
+      "owner": "رضا اکبری",
+      "size": "28.4 MB",
+      "permissions": "خواندن و نوشتن"
+    },
+    {
+      "id": "1.1.1.1",
+      "name": "فاز توسعه نرم‌افزار (سطح ۴)",
+      "description": "محیط نگهدارنده بخش کدنویسی فرانت‌اند و بک‌اند",
+      "type": "پوشه پروژه",
+      "createdDate": "1403/01/20",
+      "owner": "مریم احمدی",
+      "size": "14.2 MB",
+      "permissions": "خواندن و نوشتن"
+    },
+    {
+      "id": "1.1.1.1.1",
+      "name": "سورس کد اصلی (سطح ۵)",
+      "description": "فایل نهایی کامپایل شده نرم افزار جاوا اسکریپت",
+      "type": "فایل TypeScript",
+      "createdDate": "1403/02/01",
+      "owner": "سلمان محمدی",
+      "size": "450 KB",
+      "permissions": "خواندن و نوشتن"
+    },
+    {
+      "id": "1.1.1.1.2",
+      "name": "پیکربندی گیت (سطح ۵)",
+      "description": "تنظیمات مخزن گیت‌لب برای دیپلوی خودکار",
+      "type": "فایل پیکربندی",
+      "createdDate": "1403/02/02",
+      "owner": "امیر قاسمی",
+      "size": "12 KB",
+      "permissions": "فقط خواندن"
+    },
+    {
+      "id": "1.1.1.2",
+      "name": "طرح‌های گرافیکی (سطح ۴)",
+      "description": "اسکچ‌ها و وایرفریم‌های UI طراحی شده در فیگما",
+      "type": "فایل تصویری",
+      "createdDate": "1403/01/25",
+      "owner": "سارا حسینی",
+      "size": "13.8 MB",
+      "permissions": "فقط خواندن"
+    },
+    {
+      "id": "1.1.2",
+      "name": "فایل صوتی پروژه‌ها",
+      "description": "صداهای ضبط شده جلسات نیازمندی نرم‌افزار",
+      "type": "فایل صوتی",
+      "createdDate": "1403/01/18",
+      "owner": "زهرا موسوی",
+      "size": "3.7 MB",
+      "permissions": "فقط خواندن"
+    },
+    {
+      "id": "1.2",
+      "name": "مستندات متنی",
+      "description": "قراردادها و فرم‌های اداری با فرمت استاندارد",
+      "type": "سند PDF",
+      "createdDate": "1403/01/11",
+      "owner": "حسین نوری",
+      "size": "1.9 MB",
+      "permissions": "خواندن و نوشتن"
+    },
+    {
+      "id": "1.3",
+      "name": "ویدیوهای آموزشی",
+      "description": "فیلم راهنمای استفاده از پنل ادمین برای کارفرما",
+      "type": "فایل ویدیویی",
+      "createdDate": "1403/01/14",
+      "owner": "علی کریمی",
+      "size": "11.2 MB",
+      "permissions": "فقط خواندن"
+    },
+    {
+      "id": "2",
+      "name": "پوشه اصلی دوم (سطح ۱)",
+      "description": "مرجع دوم نگهداری داده‌های متفرقه شبکه",
+      "type": "پوشه",
+      "createdDate": "1403/01/05",
+      "owner": "فاطمه محمدی",
+      "size": "120.5 MB",
+      "permissions": "مدیر سیستم"
+    },
+    {
+      "id": "2.1",
+      "name": "پایگاه داده (سطح ۲)",
+      "description": "محل ذخیره‌سازی جداول اصلی اطلاعات کاربران",
+      "type": "پوشه سیستم",
+      "createdDate": "1403/01/06",
+      "owner": "حامد صبوری",
+      "size": "118.0 MB",
+      "permissions": "دسترسی ادمین دیتابیس"
+    },
+    {
+      "id": "2.1.1",
+      "name": "پشتیبان‌گیری (سطح ۳)",
+      "description": "بکاپ‌های دوره‌ای فشرده شده از دیتابیس SQL",
+      "type": "فایل فشرده Zip",
+      "createdDate": "1403/02/15",
+      "owner": "حامد صبوری",
+      "size": "118.0 MB",
+      "permissions": "دسترسی ادمین دیتابیس"
+    },
+    {
+      "id": "2.2",
+      "name": "اسناد مالی",
+      "description": "فاکتورهای رسمی و اطلاعات پرداخت‌های سال مالی جاری",
+      "type": "فایل Excel",
+      "createdDate": "1403/01/08",
+      "owner": "نرگس فتحی",
+      "size": "2.5 MB",
+      "permissions": "دسترسی مالی"
+    },
+    {
+      "id": "3",
+      "name": "تنظیمات زیرساخت (سطح ۱)",
+      "description": "پیکربندی محیط عملیاتی سرور لینوکس ابونتو",
+      "type": "پوشه سیستم",
+      "createdDate": "1403/01/01",
+      "owner": "سلمان محمدی",
+      "size": "8.4 MB",
+      "permissions": "دسترسی روت"
+    },
+    {
+      "id": "3.1",
+      "name": "سرور لینوکس (سطح ۲)",
+      "description": "تنظیمات هسته سیستم عامل و وب‌سرور انجین‌اکس",
+      "type": "پوشه",
+      "createdDate": "1403/01/02",
+      "owner": "کیوان رضایی",
+      "size": "8.1 MB",
+      "permissions": "دسترسی روت"
+    },
+    {
+      "id": "3.1.1",
+      "name": "کانفیگ شبکه (سطح ۳)",
+      "description": "تنظیمات آی‌پی و پورت‌های باز فایروال سرور",
+      "type": "پوشه",
+      "createdDate": "1403/01/03",
+      "owner": "کیوان رضایی",
+      "size": "45 KB",
+      "permissions": "دسترسی روت"
+    },
+    {
+      "id": "3.1.1.1",
+      "name": "کلید امنیتی SSH (سطح ۴)",
+      "description": "کلیدهای رمزگذاری شده برای ورود امن بدون پسورد",
+      "type": "فایل کلید",
+      "createdDate": "1403/01/04",
+      "owner": "سلمان محمدی",
+      "size": "4 KB",
+      "permissions": "فقط مالک فایل"
+    },
+    {
+      "id": "3.2",
+      "name": "فایل لاگ خطاها",
+      "description": "گزارش خطاهای سیستم در زمان اجرای سرور فست‌آپی",
+      "type": "فایل متن روان",
+      "createdDate": "1403/02/19",
+      "owner": "نرم‌افزار",
+      "size": "256 KB",
+      "permissions": "فقط خواندن"
+    },
+    {
+      "id": "4",
+      "name": "بایگانی قدیمی",
+      "description": "فایل‌های قدیمی مربوط به سال‌های گذشته جهت آرشیو",
+      "type": "پوشه آرشیو",
+      "createdDate": "1401/12/29",
+      "owner": "مدیریت",
+      "size": "520 MB",
+      "permissions": "فقط خواندن"
+    }
+  ],
+  "diagram": {
+    "substations": [
+      {
+        "id": "koohsangi",
+        "name": "KOOHSANGI 66kV",
+        "x": 50,
+        "y": 50,
+        "width": 750,
+        "height": 450,
+        "tooltipInfo": {
+          "Substation": "KOOHSANGI",
+          "Voltage": "66kV",
+          "Location": "Mashhad"
+        }
+      },
+      {
+        "id": "shariati",
+        "name": "SHARIATI 66kV",
+        "x": 850,
+        "y": 50,
+        "width": 750,
+        "height": 450,
+        "tooltipInfo": {
+          "Substation": "SHARIATI",
+          "Voltage": "66kV",
+          "Location": "Mashhad"
+        }
+      },
+      {
+        "id": "sanabad",
+        "name": "SANABAD 66kV",
+        "x": 1650,
+        "y": 50,
+        "width": 750,
+        "height": 450,
+        "tooltipInfo": {
+          "Substation": "SANABAD",
+          "Voltage": "66kV",
+          "Location": "Mashhad"
+        }
+      },
+      {
+        "id": "ghaem",
+        "name": "GHAEM 66kV",
+        "x": 850,
+        "y": 550,
+        "width": 750,
+        "height": 450,
+        "tooltipInfo": {
+          "Substation": "GHAEM",
+          "Voltage": "66kV",
+          "Location": "Mashhad"
+        }
+      }
+    ],
+    "components": [
+      {
+        "id": "koohsangi-bus",
+        "type": "busbar-section",
+        "substationId": "koohsangi",
+        "x": 425,
+        "y": 380,
+        "width": 320,
+        "extraData": {
+          "showTicks": true
+        }
+      },
+      {
+        "id": "koohsangi-fused-disc",
+        "type": "fused-disconnector",
+        "substationId": "koohsangi",
+        "x": 180,
+        "y": 100
+      },
+      {
+        "id": "koohsangi-pt-disc",
+        "type": "inline-disconnector",
+        "substationId": "koohsangi",
+        "x": 220,
+        "y": 140
+      },
+      {
+        "id": "koohsangi-pt",
+        "type": "potential-transformer",
+        "substationId": "koohsangi",
+        "x": 260,
+        "y": 140
+      },
+      {
+        "id": "koohsangi-ct-assy",
+        "type": "junction",
+        "substationId": "koohsangi",
+        "x": 340,
+        "y": 200
+      },
+      {
+        "id": "koohsangi-ct1",
+        "type": "current-transformer",
+        "substationId": "koohsangi",
+        "x": 340,
+        "y": 230,
+        "extraData": {
+          "label": "3S"
+        }
+      },
+      {
+        "id": "koohsangi-ct2",
+        "type": "current-transformer",
+        "substationId": "koohsangi",
+        "x": 340,
+        "y": 265,
+        "extraData": {
+          "label": "2S"
+        }
+      },
+      {
+        "id": "koohsangi-ct3",
+        "type": "current-transformer",
+        "substationId": "koohsangi",
+        "x": 340,
+        "y": 300,
+        "extraData": {
+          "label": "1S"
+        }
+      },
+      {
+        "id": "koohsangi-cb",
+        "type": "circuit-breaker-open",
+        "substationId": "koohsangi",
+        "x": 340,
+        "y": 350
+      },
+      {
+        "id": "koohsangi-relay1",
+        "type": "relay-box",
+        "substationId": "koohsangi",
+        "x": 460,
+        "y": 230,
+        "width": 100,
+        "height": 45,
+        "extraData": {
+          "lines": [
+            "LFZB11",
+            "21/67N/79"
+          ]
+        }
+      },
+      {
+        "id": "koohsangi-relay2",
+        "type": "relay-box",
+        "substationId": "koohsangi",
+        "x": 460,
+        "y": 285,
+        "width": 100,
+        "height": 30,
+        "extraData": {
+          "lines": [
+            "RXIDF2H",
+            "67"
+          ]
+        }
+      },
+      {
+        "id": "koohsangi-cap",
+        "type": "capacitor-bank",
+        "substationId": "koohsangi",
+        "x": 500,
+        "y": 380,
+        "extraData": {
+          "label": "5MVAr"
+        }
+      },
+      {
+        "id": "koohsangi-es",
+        "type": "earthing-switch",
+        "substationId": "koohsangi",
+        "x": 680,
+        "y": 380
+      },
+      {
+        "id": "koohsangi-text",
+        "type": "text-block",
+        "substationId": "koohsangi",
+        "x": 50,
+        "y": 180,
+        "extraData": {
+          "lines": [
+            "3-PT: 66/√3 : 0.11/√3",
+            "3-CT: 600-300/1A",
+            "CORE3: 5P20, 50VA"
+          ]
+        }
+      },
+      {
+        "id": "shariati-bus",
+        "type": "busbar-section",
+        "substationId": "shariati",
+        "x": 1225,
+        "y": 380,
+        "width": 320,
+        "extraData": {
+          "showTicks": true
+        }
+      },
+      {
+        "id": "shariati-fused-disc",
+        "type": "fused-disconnector",
+        "substationId": "shariati",
+        "x": 980,
+        "y": 100
+      },
+      {
+        "id": "shariati-pt-disc",
+        "type": "inline-disconnector",
+        "substationId": "shariati",
+        "x": 1020,
+        "y": 140
+      },
+      {
+        "id": "shariati-pt",
+        "type": "potential-transformer",
+        "substationId": "shariati",
+        "x": 1060,
+        "y": 140
+      },
+      {
+        "id": "shariati-ct-assy",
+        "type": "junction",
+        "substationId": "shariati",
+        "x": 1140,
+        "y": 200
+      },
+      {
+        "id": "shariati-ct1",
+        "type": "current-transformer",
+        "substationId": "shariati",
+        "x": 1140,
+        "y": 230,
+        "extraData": {
+          "label": "3S"
+        }
+      },
+      {
+        "id": "shariati-ct2",
+        "type": "current-transformer",
+        "substationId": "shariati",
+        "x": 1140,
+        "y": 265,
+        "extraData": {
+          "label": "2S"
+        }
+      },
+      {
+        "id": "shariati-ct3",
+        "type": "current-transformer",
+        "substationId": "shariati",
+        "x": 1140,
+        "y": 300,
+        "extraData": {
+          "label": "1S"
+        }
+      },
+      {
+        "id": "shariati-cb",
+        "type": "circuit-breaker-open",
+        "substationId": "shariati",
+        "x": 1140,
+        "y": 350
+      },
+      {
+        "id": "shariati-relay1",
+        "type": "relay-box",
+        "substationId": "shariati",
+        "x": 1280,
+        "y": 230,
+        "width": 100,
+        "height": 45,
+        "extraData": {
+          "lines": [
+            "7SJ62",
+            "50/51/67"
+          ]
+        }
+      },
+      {
+        "id": "shariati-relay2",
+        "type": "relay-box",
+        "substationId": "shariati",
+        "x": 1280,
+        "y": 285,
+        "width": 100,
+        "height": 30,
+        "extraData": {
+          "lines": [
+            "REX640",
+            "87T"
+          ]
+        }
+      },
+      {
+        "id": "shariati-cap",
+        "type": "capacitor-bank",
+        "substationId": "shariati",
+        "x": 1300,
+        "y": 380,
+        "extraData": {
+          "label": "5MVAr"
+        }
+      },
+      {
+        "id": "shariati-es",
+        "type": "earthing-switch",
+        "substationId": "shariati",
+        "x": 1480,
+        "y": 380
+      },
+      {
+        "id": "shariati-text",
+        "type": "text-block",
+        "substationId": "shariati",
+        "x": 860,
+        "y": 180,
+        "extraData": {
+          "lines": [
+            "3-PT: 66/√3 : 0.11/√3",
+            "3-CT: 600-300/1A",
+            "CORE1: 5P20"
+          ]
+        }
+      },
+      {
+        "id": "sanabad-bus",
+        "type": "busbar-section",
+        "substationId": "sanabad",
+        "x": 2025,
+        "y": 380,
+        "width": 320,
+        "extraData": {
+          "showTicks": true
+        }
+      },
+      {
+        "id": "sanabad-fused-disc",
+        "type": "fused-disconnector",
+        "substationId": "sanabad",
+        "x": 1780,
+        "y": 100
+      },
+      {
+        "id": "sanabad-pt-disc",
+        "type": "inline-disconnector",
+        "substationId": "sanabad",
+        "x": 1820,
+        "y": 140
+      },
+      {
+        "id": "sanabad-pt",
+        "type": "potential-transformer",
+        "substationId": "sanabad",
+        "x": 1860,
+        "y": 140
+      },
+      {
+        "id": "sanabad-ct-assy",
+        "type": "junction",
+        "substationId": "sanabad",
+        "x": 1940,
+        "y": 200
+      },
+      {
+        "id": "sanabad-ct1",
+        "type": "current-transformer",
+        "substationId": "sanabad",
+        "x": 1940,
+        "y": 230,
+        "extraData": {
+          "label": "3S"
+        }
+      },
+      {
+        "id": "sanabad-ct2",
+        "type": "current-transformer",
+        "substationId": "sanabad",
+        "x": 1940,
+        "y": 265,
+        "extraData": {
+          "label": "2S"
+        }
+      },
+      {
+        "id": "sanabad-ct3",
+        "type": "current-transformer",
+        "substationId": "sanabad",
+        "x": 1940,
+        "y": 300,
+        "extraData": {
+          "label": "1S"
+        }
+      },
+      {
+        "id": "sanabad-cb",
+        "type": "circuit-breaker-open",
+        "substationId": "sanabad",
+        "x": 1940,
+        "y": 350
+      },
+      {
+        "id": "sanabad-relay1",
+        "type": "relay-box",
+        "substationId": "sanabad",
+        "x": 2080,
+        "y": 230,
+        "width": 100,
+        "height": 45,
+        "extraData": {
+          "lines": [
+            "P443",
+            "21/67/79"
+          ]
+        }
+      },
+      {
+        "id": "sanabad-relay2",
+        "type": "relay-box",
+        "substationId": "sanabad",
+        "x": 2080,
+        "y": 285,
+        "width": 100,
+        "height": 30,
+        "extraData": {
+          "lines": [
+            "MCGG22",
+            "51/51N"
+          ]
+        }
+      },
+      {
+        "id": "sanabad-cap",
+        "type": "capacitor-bank",
+        "substationId": "sanabad",
+        "x": 2100,
+        "y": 380,
+        "extraData": {
+          "label": "5MVAr"
+        }
+      },
+      {
+        "id": "sanabad-es",
+        "type": "earthing-switch",
+        "substationId": "sanabad",
+        "x": 2280,
+        "y": 380
+      },
+      {
+        "id": "sanabad-text",
+        "type": "text-block",
+        "substationId": "sanabad",
+        "x": 1660,
+        "y": 180,
+        "extraData": {
+          "lines": [
+            "3-PT: 66/√3 : 0.11/√3",
+            "3-CT: 600-300/1A",
+            "CORE2: CL.1"
+          ]
+        }
+      },
+      {
+        "id": "ghaem-bus",
+        "type": "busbar-section",
+        "substationId": "ghaem",
+        "x": 1225,
+        "y": 880,
+        "width": 320,
+        "extraData": {
+          "showTicks": true
+        }
+      },
+      {
+        "id": "ghaem-fused-disc",
+        "type": "fused-disconnector",
+        "substationId": "ghaem",
+        "x": 980,
+        "y": 600
+      },
+      {
+        "id": "ghaem-pt-disc",
+        "type": "inline-disconnector",
+        "substationId": "ghaem",
+        "x": 1020,
+        "y": 640
+      },
+      {
+        "id": "ghaem-pt",
+        "type": "potential-transformer",
+        "substationId": "ghaem",
+        "x": 1060,
+        "y": 640
+      },
+      {
+        "id": "ghaem-ct-assy",
+        "type": "junction",
+        "substationId": "ghaem",
+        "x": 1140,
+        "y": 700
+      },
+      {
+        "id": "ghaem-ct1",
+        "type": "current-transformer",
+        "substationId": "ghaem",
+        "x": 1140,
+        "y": 730,
+        "extraData": {
+          "label": "3S"
+        }
+      },
+      {
+        "id": "ghaem-ct2",
+        "type": "current-transformer",
+        "substationId": "ghaem",
+        "x": 1140,
+        "y": 765,
+        "extraData": {
+          "label": "2S"
+        }
+      },
+      {
+        "id": "ghaem-ct3",
+        "type": "current-transformer",
+        "substationId": "ghaem",
+        "x": 1140,
+        "y": 800,
+        "extraData": {
+          "label": "1S"
+        }
+      },
+      {
+        "id": "ghaem-cb",
+        "type": "circuit-breaker-open",
+        "substationId": "ghaem",
+        "x": 1140,
+        "y": 850
+      },
+      {
+        "id": "ghaem-relay1",
+        "type": "relay-box",
+        "substationId": "ghaem",
+        "x": 1280,
+        "y": 730,
+        "width": 100,
+        "height": 45,
+        "extraData": {
+          "lines": [
+            "REF615",
+            "50/51/67"
+          ]
+        }
+      },
+      {
+        "id": "ghaem-relay2",
+        "type": "relay-box",
+        "substationId": "ghaem",
+        "x": 1280,
+        "y": 785,
+        "width": 100,
+        "height": 30,
+        "extraData": {
+          "lines": [
+            "VIP300",
+            "21N"
+          ]
+        }
+      },
+      {
+        "id": "ghaem-cap",
+        "type": "capacitor-bank",
+        "substationId": "ghaem",
+        "x": 1300,
+        "y": 880,
+        "extraData": {
+          "label": "5MVAr"
+        }
+      },
+      {
+        "id": "ghaem-es",
+        "type": "earthing-switch",
+        "substationId": "ghaem",
+        "x": 1480,
+        "y": 880
+      },
+      {
+        "id": "ghaem-text",
+        "type": "text-block",
+        "substationId": "ghaem",
+        "x": 860,
+        "y": 680,
+        "extraData": {
+          "lines": [
+            "3-PT: 66/√3 : 0.11/√3",
+            "3-CT: 600-300/1A",
+            "CORE3: 0.5",
+            "Battery: 110V DC"
+          ]
+        }
+      },
+      {
+        "id": "koohsangi-out-junction",
+        "type": "junction",
+        "substationId": "koohsangi",
+        "x": 745,
+        "y": 380
+      },
+      {
+        "id": "shariati-left-junction",
+        "type": "junction",
+        "substationId": "shariati",
+        "x": 855,
+        "y": 380
+      },
+      {
+        "id": "shariati-right-junction",
+        "type": "junction",
+        "substationId": "shariati",
+        "x": 1525,
+        "y": 380
+      },
+      {
+        "id": "sanabad-left-junction",
+        "type": "junction",
+        "substationId": "sanabad",
+        "x": 1635,
+        "y": 380
+      },
+      {
+        "id": "shariati-bottom-junction",
+        "type": "junction",
+        "substationId": "shariati",
+        "x": 1225,
+        "y": 470
+      },
+      {
+        "id": "ghaem-top-junction",
+        "type": "junction",
+        "substationId": "ghaem",
+        "x": 1225,
+        "y": 545
+      },
+      {
+        "id": "koohsangi-bottom-junction",
+        "type": "junction",
+        "substationId": "koohsangi",
+        "x": 425,
+        "y": 470
+      },
+      {
+        "id": "sanabad-bottom-junction",
+        "type": "junction",
+        "substationId": "sanabad",
+        "x": 2025,
+        "y": 470
+      }
+    ],
+    "connections": [
+      {
+        "id": "k1",
+        "from": "koohsangi-fused-disc",
+        "to": "koohsangi-fused-disc",
+        "style": "straight"
+      },
+      {
+        "id": "k2",
+        "from": "koohsangi-fused-disc",
+        "to": "koohsangi-pt-disc",
+        "style": "straight"
+      },
+      {
+        "id": "k3",
+        "from": "koohsangi-pt-disc",
+        "to": "koohsangi-pt",
+        "style": "straight"
+      },
+      {
+        "id": "k4",
+        "from": "koohsangi-pt",
+        "to": "koohsangi-ct-assy",
+        "style": "straight",
+        "dashed": true
+      },
+      {
+        "id": "k5",
+        "from": "koohsangi-ct-assy",
+        "to": "koohsangi-ct3",
+        "style": "straight"
+      },
+      {
+        "id": "k6",
+        "from": "koohsangi-ct3",
+        "to": "koohsangi-cb",
+        "style": "straight"
+      },
+      {
+        "id": "k7",
+        "from": "koohsangi-cb",
+        "to": "koohsangi-bus",
+        "style": "straight"
+      },
+      {
+        "id": "k8",
+        "from": "koohsangi-ct1",
+        "to": "koohsangi-relay1",
+        "style": "orthogonal",
+        "endX": 460,
+        "endY": 230
+      },
+      {
+        "id": "k9",
+        "from": "koohsangi-ct2",
+        "to": "koohsangi-relay2",
+        "style": "orthogonal",
+        "endX": 460,
+        "endY": 285
+      },
+      {
+        "id": "k10",
+        "from": "koohsangi-bus",
+        "to": "koohsangi-cap",
+        "style": "straight"
+      },
+      {
+        "id": "k11",
+        "from": "koohsangi-bus",
+        "to": "koohsangi-es",
+        "style": "straight"
+      },
+      {
+        "id": "k12",
+        "from": "koohsangi-bus",
+        "to": "koohsangi-out-junction",
+        "style": "straight"
+      },
+      {
+        "id": "s1",
+        "from": "shariati-fused-disc",
+        "to": "shariati-fused-disc",
+        "style": "straight"
+      },
+      {
+        "id": "s2",
+        "from": "shariati-fused-disc",
+        "to": "shariati-pt-disc",
+        "style": "straight"
+      },
+      {
+        "id": "s3",
+        "from": "shariati-pt-disc",
+        "to": "shariati-pt",
+        "style": "straight"
+      },
+      {
+        "id": "s4",
+        "from": "shariati-pt",
+        "to": "shariati-ct-assy",
+        "style": "straight",
+        "dashed": true
+      },
+      {
+        "id": "s5",
+        "from": "shariati-ct-assy",
+        "to": "shariati-ct3",
+        "style": "straight"
+      },
+      {
+        "id": "s6",
+        "from": "shariati-ct3",
+        "to": "shariati-cb",
+        "style": "straight"
+      },
+      {
+        "id": "s7",
+        "from": "shariati-cb",
+        "to": "shariati-bus",
+        "style": "straight"
+      },
+      {
+        "id": "s8",
+        "from": "shariati-ct1",
+        "to": "shariati-relay1",
+        "style": "orthogonal",
+        "endX": 1280,
+        "endY": 230
+      },
+      {
+        "id": "s9",
+        "from": "shariati-ct2",
+        "to": "shariati-relay2",
+        "style": "orthogonal",
+        "endX": 1280,
+        "endY": 285
+      },
+      {
+        "id": "s10",
+        "from": "shariati-bus",
+        "to": "shariati-cap",
+        "style": "straight"
+      },
+      {
+        "id": "s11",
+        "from": "shariati-bus",
+        "to": "shariati-es",
+        "style": "straight"
+      },
+      {
+        "id": "s12",
+        "from": "shariati-bus",
+        "to": "shariati-left-junction",
+        "style": "straight"
+      },
+      {
+        "id": "s13",
+        "from": "shariati-bus",
+        "to": "shariati-right-junction",
+        "style": "straight"
+      },
+      {
+        "id": "s14",
+        "from": "shariati-bus",
+        "to": "shariati-bottom-junction",
+        "style": "straight"
+      },
+      {
+        "id": "n1",
+        "from": "sanabad-fused-disc",
+        "to": "sanabad-fused-disc",
+        "style": "straight"
+      },
+      {
+        "id": "n2",
+        "from": "sanabad-fused-disc",
+        "to": "sanabad-pt-disc",
+        "style": "straight"
+      },
+      {
+        "id": "n3",
+        "from": "sanabad-pt-disc",
+        "to": "sanabad-pt",
+        "style": "straight"
+      },
+      {
+        "id": "n4",
+        "from": "sanabad-pt",
+        "to": "sanabad-ct-assy",
+        "style": "straight",
+        "dashed": true
+      },
+      {
+        "id": "n5",
+        "from": "sanabad-ct-assy",
+        "to": "sanabad-ct3",
+        "style": "straight"
+      },
+      {
+        "id": "n6",
+        "from": "sanabad-ct3",
+        "to": "sanabad-cb",
+        "style": "straight"
+      },
+      {
+        "id": "n7",
+        "from": "sanabad-cb",
+        "to": "sanabad-bus",
+        "style": "straight"
+      },
+      {
+        "id": "n8",
+        "from": "sanabad-ct1",
+        "to": "sanabad-relay1",
+        "style": "orthogonal",
+        "endX": 2080,
+        "endY": 230
+      },
+      {
+        "id": "n9",
+        "from": "sanabad-ct2",
+        "to": "sanabad-relay2",
+        "style": "orthogonal",
+        "endX": 2080,
+        "endY": 285
+      },
+      {
+        "id": "n10",
+        "from": "sanabad-bus",
+        "to": "sanabad-cap",
+        "style": "straight"
+      },
+      {
+        "id": "n11",
+        "from": "sanabad-bus",
+        "to": "sanabad-es",
+        "style": "straight"
+      },
+      {
+        "id": "n12",
+        "from": "sanabad-bus",
+        "to": "sanabad-left-junction",
+        "style": "straight"
+      },
+      {
+        "id": "n13",
+        "from": "sanabad-bus",
+        "to": "sanabad-bottom-junction",
+        "style": "straight"
+      },
+      {
+        "id": "g1",
+        "from": "ghaem-fused-disc",
+        "to": "ghaem-fused-disc",
+        "style": "straight"
+      },
+      {
+        "id": "g2",
+        "from": "ghaem-fused-disc",
+        "to": "ghaem-pt-disc",
+        "style": "straight"
+      },
+      {
+        "id": "g3",
+        "from": "ghaem-pt-disc",
+        "to": "ghaem-pt",
+        "style": "straight"
+      },
+      {
+        "id": "g4",
+        "from": "ghaem-pt",
+        "to": "ghaem-ct-assy",
+        "style": "straight",
+        "dashed": true
+      },
+      {
+        "id": "g5",
+        "from": "ghaem-ct-assy",
+        "to": "ghaem-ct3",
+        "style": "straight"
+      },
+      {
+        "id": "g6",
+        "from": "ghaem-ct3",
+        "to": "ghaem-cb",
+        "style": "straight"
+      },
+      {
+        "id": "g7",
+        "from": "ghaem-cb",
+        "to": "ghaem-bus",
+        "style": "straight"
+      },
+      {
+        "id": "g8",
+        "from": "ghaem-ct1",
+        "to": "ghaem-relay1",
+        "style": "orthogonal",
+        "endX": 1280,
+        "endY": 730
+      },
+      {
+        "id": "g9",
+        "from": "ghaem-ct2",
+        "to": "ghaem-relay2",
+        "style": "orthogonal",
+        "endX": 1280,
+        "endY": 785
+      },
+      {
+        "id": "g10",
+        "from": "ghaem-bus",
+        "to": "ghaem-cap",
+        "style": "straight"
+      },
+      {
+        "id": "g11",
+        "from": "ghaem-bus",
+        "to": "ghaem-es",
+        "style": "straight"
+      },
+      {
+        "id": "g12",
+        "from": "ghaem-bus",
+        "to": "ghaem-top-junction",
+        "style": "straight"
+      },
+      {
+        "id": "link-koohsangi-shariati",
+        "from": "koohsangi-out-junction",
+        "to": "shariati-left-junction",
+        "style": "straight"
+      },
+      {
+        "id": "link-shariati-sanabad",
+        "from": "shariati-right-junction",
+        "to": "sanabad-left-junction",
+        "style": "straight"
+      },
+      {
+        "id": "link-shariati-ghaem",
+        "from": "shariati-bottom-junction",
+        "to": "ghaem-top-junction",
+        "style": "straight"
+      }
+    ]
+  }
+}

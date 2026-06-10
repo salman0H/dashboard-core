@@ -1,0 +1,16 @@
+{
+  "nodes": [
+    { "id": "start_001", "position": { "x": -190, "y": 90 }, "type": "start", "parentId": null, "formDataId": "fd_start" },
+    { "id": "dec_001", "position": { "x": 218, "y": 300 }, "type": "decision", "parentId": null, "formDataId": "fd_dec1" },
+    { "id": "proc_001", "position": { "x": 450, "y": 200 }, "type": "process", "parentId": null, "formDataId": "fd_proc1" }
+  ],
+  "edges": [
+    { "id": "e1", "source": "start_001", "target": "dec_001", "type": "step" },
+    { "id": "e2", "source": "dec_001", "target": "proc_001", "type": "step" }
+  ],
+  "formData": [
+    { "id": "fd_start", "nodeId": "fd_start", "label": "شروع", "executionProcess": "start_main", "nextProcess": ["dec_001"], "previousProcess": null, "finalProcess": "", "type": "start", "description": "نقطه شروع فرآیند" },
+    { "id": "fd_dec1", "nodeId": "fd_dec1", "label": "تصمیم اول", "executionProcess": "decision_1", "nextProcess": ["proc_001"], "previousProcess": { "id": "start_001", "name": "شروع", "type": "start" }, "finalProcess": "conditional", "type": "decision", "description": "بررسی وضعیت ورودی" },
+    { "id": "fd_proc1", "nodeId": "fd_proc1", "label": "فرآیند اول", "executionProcess": "process_1", "nextProcess": [], "previousProcess": { "id": "dec_001", "name": "تصمیم اول", "type": "decision" }, "finalProcess": "yes", "type": "process", "description": "پردازش داده" }
+  ]
+}

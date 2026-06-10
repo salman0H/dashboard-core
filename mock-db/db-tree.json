@@ -1,0 +1,36 @@
+{
+  "tree": [
+    { "id": "1", "name": "پوشه اصلی اول", "icon": "folder", "children": [
+        { "id": "1.1", "name": "پوشه فرعی", "icon": "folder", "children": [
+            { "id": "1.1.1", "name": "بخش مهندسی", "icon": "folder", "children": [
+                { "id": "1.1.1.1", "name": "سورس کد", "icon": "code" },
+                { "id": "1.1.1.2", "name": "طرح‌های گرافیکی", "icon": "image" }
+            ]},
+            { "id": "1.1.2", "name": "فایل صوتی", "icon": "audio-lines" }
+        ]},
+        { "id": "1.2", "name": "مستندات متنی", "icon": "file-text" }
+    ]},
+    { "id": "2", "name": "پوشه اصلی دوم", "icon": "folder", "children": [
+        { "id": "2.1", "name": "پایگاه داده", "icon": "database", "children": [
+            { "id": "2.1.1", "name": "پشتیبان‌گیری", "icon": "archive" }
+        ]}
+    ]},
+    { "id": "3", "name": "تنظیمات زیرساخت", "icon": "settings", "children": [
+        { "id": "3.1", "name": "سرور لینوکس", "icon": "server" }
+    ]}
+  ],
+  "details": [
+    { "id": "1", "name": "پوشه اصلی اول", "description": "ریشه اصلی درخت فایل", "type": "پوشه", "createdDate": "1403/01/10", "owner": "سلمان محمدی", "size": "45.2 MB", "permissions": "مدیر سیستم" },
+    { "id": "1.1", "name": "پوشه فرعی", "description": "پوشه سطح دوم", "type": "پوشه", "createdDate": "1403/01/12", "owner": "علی کریمی", "size": "32.1 MB", "permissions": "خواندن و نوشتن" },
+    { "id": "1.1.1", "name": "بخش مهندسی", "description": "اطلاعات فنی پروژه", "type": "پوشه", "createdDate": "1403/01/15", "owner": "رضا اکبری", "size": "28.4 MB", "permissions": "خواندن و نوشتن" },
+    { "id": "1.1.1.1", "name": "سورس کد", "description": "کد منبع نرم‌افزار", "type": "فایل TypeScript", "createdDate": "1403/02/01", "owner": "سلمان محمدی", "size": "450 KB", "permissions": "خواندن و نوشتن" },
+    { "id": "1.1.1.2", "name": "طرح‌های گرافیکی", "description": "وایرفریم‌های UI", "type": "فایل تصویری", "createdDate": "1403/01/25", "owner": "سارا حسینی", "size": "13.8 MB", "permissions": "فقط خواندن" },
+    { "id": "1.1.2", "name": "فایل صوتی", "description": "صداهای ضبط شده جلسات", "type": "فایل صوتی", "createdDate": "1403/01/18", "owner": "زهرا موسوی", "size": "3.7 MB", "permissions": "فقط خواندن" },
+    { "id": "1.2", "name": "مستندات متنی", "description": "قراردادها و فرم‌های اداری", "type": "سند PDF", "createdDate": "1403/01/11", "owner": "حسین نوری", "size": "1.9 MB", "permissions": "خواندن و نوشتن" },
+    { "id": "2", "name": "پوشه اصلی دوم", "description": "داده‌های متفرقه شبکه", "type": "پوشه", "createdDate": "1403/01/05", "owner": "فاطمه محمدی", "size": "120.5 MB", "permissions": "مدیر سیستم" },
+    { "id": "2.1", "name": "پایگاه داده", "description": "جداول اصلی اطلاعات", "type": "پوشه سیستم", "createdDate": "1403/01/06", "owner": "حامد صبوری", "size": "118.0 MB", "permissions": "دسترسی ادمین دیتابیس" },
+    { "id": "2.1.1", "name": "پشتیبان‌گیری", "description": "بکاپ‌های دوره‌ای", "type": "فایل فشرده", "createdDate": "1403/02/15", "owner": "حامد صبوری", "size": "118.0 MB", "permissions": "دسترسی ادمین دیتابیس" },
+    { "id": "3", "name": "تنظیمات زیرساخت", "description": "پیکربندی محیط عملیاتی", "type": "پوشه سیستم", "createdDate": "1403/01/01", "owner": "سلمان محمدی", "size": "8.4 MB", "permissions": "دسترسی روت" },
+    { "id": "3.1", "name": "سرور لینوکس", "description": "تنظیمات هسته سیستم", "type": "پوشه", "createdDate": "1403/01/02", "owner": "کیوان رضایی", "size": "8.1 MB", "permissions": "دسترسی روت" }
+  ]
+}

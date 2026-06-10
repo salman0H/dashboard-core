@@ -1,0 +1,20 @@
+{
+  "diagram": {
+    "substations": [
+      { "id": "sub-1", "name": "پست پاساژ با دسترسی آزاد", "x": 50, "y": 50, "width": 400, "height": 350, "tooltipInfo": "ساختمان مجزا – دسترسی آزاد – ولتاژ 20kV" },
+      { "id": "sub-2", "name": "پست داخلی در ساختمان دیگر", "x": 500, "y": 50, "width": 400, "height": 350, "tooltipInfo": "داخل ساختمان - ولتاژ 400V" }
+    ],
+    "components": [
+      { "id": "pt-1", "name": "PT", "substationId": "sub-1", "x": 120, "y": 100, "width": 50, "height": 50, "tooltipInfo": "Potential Transformer - Ratio 20kV/100V" },
+      { "id": "ct-1", "name": "CT", "substationId": "sub-1", "x": 220, "y": 150, "width": 50, "height": 50, "tooltipInfo": "Current Transformer - Primary Current 1500A" },
+      { "id": "acb-1", "name": "ACB", "substationId": "sub-1", "x": 180, "y": 250, "width": 100, "height": 50, "tooltipInfo": "Air Circuit Breaker - GE 3200A - 415V" },
+      { "id": "kwh-1", "name": "KWH", "substationId": "sub-2", "x": 550, "y": 150, "width": 60, "height": 40, "tooltipInfo": "Energy Meter - Cumulative reading: 14500 kWh" },
+      { "id": "acb-2", "name": "ACB", "substationId": "sub-2", "x": 570, "y": 250, "width": 100, "height": 50, "tooltipInfo": "Air Circuit Breaker - Schneider 630A" }
+    ],
+    "connections": [
+      { "id": "conn-1", "from": "pt-1", "to": "ct-1", "lineStyle": "straight" },
+      { "id": "conn-2", "from": "ct-1", "to": "acb-1", "lineStyle": "straight" },
+      { "id": "conn-3", "from": "kwh-1", "to": "acb-2", "lineStyle": "straight" }
+    ]
+  }
+}

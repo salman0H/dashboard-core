@@ -1,0 +1,21 @@
+{
+  "folderTree": "Folder Tree",
+  "treeStructure": "Tree Structure",
+  "searchPlaceholder": "Search...",
+  "addSubfolder": "Add Subfolder",
+  "showChildren": "Show Children",
+  "copyInfo": "Copy Info",
+  "nodeDetails": "Node Details",
+  "name": "Name",
+  "type": "Type",
+  "owner": "Owner",
+  "createdDate": "Created Date",
+  "size": "Size",
+  "permissions": "Permissions",
+  "description": "Description",
+  "id": "ID",
+  "selectNodeHint": "Select a node from the left menu",
+  "noData": "No data available",
+  "error": "Error",
+  "loading": "Loading..."
+}

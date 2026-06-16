@@ -79,4 +79,16 @@
   .bg-sidebar-hover    { background-color: var(--sidebar-hover-bg); }
   .bg-sidebar-active   { background-color: var(--sidebar-active-bg); }
   .border-sidebar-primary-border { border-color: var(--sidebar-primary-border); }
+
+  .rounded-core {
+    border-radius: var(--radius-md);
+  }
+
+  .bg-accent-dim {
+    background-color: var(--accent-dim);
+  }
+
+  .h-screen-content {
+    height: calc(100vh - 52px);
+  }
 }

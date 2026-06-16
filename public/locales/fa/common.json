@@ -7,6 +7,8 @@
   "userMenuAriaLabel": "منوی کاربر",
   "loading": "در حال بارگذاری…",
   "error": "خطایی رخ داد",
+  "userManagement": "مدیریت کاربران",
+  "systemSettings": "تنظیمات سیستم",
   "save": "ذخیره",
   "cancel": "انصراف",
   "delete": "حذف",

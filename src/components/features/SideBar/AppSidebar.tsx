@@ -1,5 +1,14 @@
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import {
+  LayoutDashboard,
+  ChartBar,
+  Folder,
+  Network,
+  User,
+  Settings,
+  type LucideIcon,
+} from 'lucide-react'
 import { useMenu } from '@/hooks/useMenu'
 import type { MenuItem } from '@/services/menu.service'
 
@@ -17,9 +26,22 @@ interface BottomItem {
 }
 
 const bottomItems: BottomItem[] = [
-  { id: 'user-management', labelKey: 'userManagement', icon: 'ti-user', route: '#' },
-  { id: 'system-settings', labelKey: 'systemSettings', icon: 'ti-settings', route: '#' },
+  { id: 'user-management', labelKey: 'userManagement', icon: 'User', route: '#' },
+  { id: 'system-settings', labelKey: 'systemSettings', icon: 'Settings', route: '#' },
 ]
+
+const iconMap: Record<string, LucideIcon> = {
+  'ti-layout-dashboard': LayoutDashboard,
+  'ti-chart-bar': ChartBar,
+  'ti-folder': Folder,
+  'ti-topology-ring': Network,
+  'User': User,
+  'Settings': Settings,
+}
+
+function getIcon(iconName: string): LucideIcon {
+  return iconMap[iconName] || Folder // fallback
+}
 
 export function AppSidebar({ open }: AppSidebarProps) {
   const { sections } = useMenu()
@@ -27,7 +49,7 @@ export function AppSidebar({ open }: AppSidebarProps) {
 
   return (
     <aside
-      className={`sidebar-transition shrink-0 flex flex-col bg-sidebar border-e border-sidebar-border overflow-hidden ${
+      className={`shrink-0 flex flex-col bg-sidebar border-e border-sidebar-border overflow-hidden transition-all duration-200 ease-in-out ${
         open ? 'w-60' : 'w-[58px]'
       }`}
       style={{ minHeight: 'calc(100vh - 52px)' }}
@@ -51,6 +73,7 @@ export function AppSidebar({ open }: AppSidebarProps) {
 
 function SidebarNavItem({ item, expanded }: { item: MenuItem; expanded: boolean }) {
   const { t } = useTranslation('nav')
+  const Icon = getIcon(item.icon)
 
   return (
     <NavLink
@@ -62,20 +85,20 @@ function SidebarNavItem({ item, expanded }: { item: MenuItem; expanded: boolean 
          ${isActive
            ? 'bg-sidebar-active text-sidebar-primary border-sidebar-primary-border'
            : 'text-sidebar-muted hover:text-sidebar-text hover:bg-sidebar-hover border-transparent'
-         }`
+         } ${!expanded && 'justify-center px-2'}`
       }
+      title={!expanded ? t(item.labelKey) : undefined}
     >
       {({ isActive }) => (
         <>
-          {/* Active indicator bar */}
           {isActive && (
             <span className="absolute start-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-accent rounded-e-full" />
           )}
-          <i
-            className={`ti ${item.icon} text-base shrink-0 transition-colors ${
+          <Icon
+            size={20}
+            className={`shrink-0 transition-colors ${
               isActive ? 'text-accent' : 'text-sidebar-icon group-hover:text-sidebar-text'
             }`}
-            aria-hidden="true"
           />
           {expanded && (
             <span className="flex-1 truncate text-start">{t(item.labelKey)}</span>
@@ -88,16 +111,19 @@ function SidebarNavItem({ item, expanded }: { item: MenuItem; expanded: boolean 
 
 function SidebarBottomItem({ item, expanded }: { item: BottomItem; expanded: boolean }) {
   const { t } = useTranslation('common')
+  const Icon = getIcon(item.icon)
 
   return (
     <button
-      className="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
+      className={`relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
         transition-all duration-150 group border border-transparent
-        text-sidebar-muted hover:text-sidebar-text hover:bg-sidebar-hover"
+        text-sidebar-muted hover:text-sidebar-text hover:bg-sidebar-hover
+        ${!expanded && 'justify-center px-2'}`}
+      title={!expanded ? t(item.labelKey) : undefined}
     >
-      <i
-        className={`ti ${item.icon} text-base shrink-0 text-sidebar-icon group-hover:text-sidebar-text`}
-        aria-hidden="true"
+      <Icon
+        size={20}
+        className="shrink-0 text-sidebar-icon group-hover:text-sidebar-text"
       />
       {expanded && (
         <span className="flex-1 truncate text-start">{t(item.labelKey)}</span>

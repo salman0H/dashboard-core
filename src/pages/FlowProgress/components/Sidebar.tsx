@@ -51,7 +51,7 @@ export const Sidebar = ({
 
   // Sidebar position: right in RTL, left in LTR
   const edgeStyle = isRtl ? { right: 0 } : { left: 0 }
-  const sideBar = !isExpanded ? 'h-[7%] w-[4%]' : 'w-[30%]';
+  const sideBar = !isExpanded ? 'h-[5%] w-[3.5%]' : 'w-[30%]';
 
   return (
     <>
@@ -59,15 +59,15 @@ export const Sidebar = ({
         dir={dir}
         className={`absolute bg-white shadow-xl rounded-xl border border-gray-200 transition-all duration-300 ease-in-out flex flex-col z-10 overflow-hidden ${sideBar}`}
         style={{
-          top: 16,
-          bottom: 16,
+          top: 12,
+          bottom: 12,
           ...edgeStyle,
         }}
       >
         {/* Toggle button */}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="absolute top-4 w-7 h-7 bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors text-xs z-20 rounded-full shadow-md"
+          className="absolute top-2 w-7 h-7 bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors text-xs z-20 rounded-full shadow-md"
           style={isRtl
             ? { right: isExpanded ? 'auto' : 12, left: isExpanded ? + 14 : 'auto' }
             : { left: isExpanded ? 'auto' : 12, right: isExpanded ? + 14 : 'auto' }

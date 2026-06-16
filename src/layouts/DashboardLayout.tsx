@@ -1,6 +1,7 @@
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { TopBar } from '@/components/features/TopBar/TopBar'
+import { AppSidebar } from '@/components/features/SideBar/AppSidebar'
 import { useDirection } from '@/hooks/useDirection'
 import { useAppContext } from '@/context/AppContext'
 
@@ -13,17 +14,11 @@ function PageLoadingFallback() {
   )
 }
 
-/**
- * DashboardLayout — the core shell.
- * TopBar is always rendered. <Outlet /> is where your pages render.
- * To add a new project: register its routes in router.tsx nested under this layout.
- * The dashboard page content is intentionally empty — add yours via Outlet.
- */
 export function DashboardLayout() {
-  // Syncs html[dir] and html[lang] reactively — no DOM writes during render.
   useDirection()
 
   const { dir } = useAppContext()
+  const [sidebarOpen, setSidebarOpen] = useState(true)
 
   return (
     <div
@@ -31,14 +26,24 @@ export function DashboardLayout() {
       dir={dir}
       className={`flex flex-col min-h-screen bg-app-bg ${dir === 'rtl' ? 'font-rtl' : ''}`}
     >
-      <TopBar />
+      {/* Sticky top bar */}
+      <div className="sticky top-0 z-50">
+        <TopBar
+          onToggleSidebar={() => setSidebarOpen((s) => !s)}
+          sidebarOpen={sidebarOpen}
+        />
+      </div>
 
-      {/* Page content — your projects go here */}
-      <main className="flex-1 overflow-y-auto scrollbar-thin">
-        <Suspense fallback={<PageLoadingFallback />}>
-          <Outlet />
-        </Suspense>
-      </main>
+      {/* Body: sidebar + page content side by side */}
+      <div className="flex flex-1 overflow-hidden">
+        <AppSidebar open={sidebarOpen} />
+
+        <main className="flex-1 overflow-y-auto scrollbar-thin">
+          <Suspense fallback={<PageLoadingFallback />}>
+            <Outlet />
+          </Suspense>
+        </main>
+      </div>
     </div>
   )
 }

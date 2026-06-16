@@ -16,22 +16,22 @@ export default defineConfig({
       // /api/substation/diagram → strips /api/substation → json-server: /diagram
       // /api/menus → strips /api → json-server: /menus
       '/api/flow': {
-        target: 'http://localhost:3001',
+        target: 'http://localhost:3002',
         changeOrigin: true,
         rewrite: (p) => p.replace(/^\/api\/flow/, ''),
       },
       '/api/tree': {
-        target: 'http://localhost:3001',
+        target: 'http://localhost:3002',
         changeOrigin: true,
         rewrite: (p) => p.replace(/^\/api\/tree/, ''),
       },
       '/api/substation': {
-        target: 'http://localhost:3001',
+        target: 'http://localhost:3002',
         changeOrigin: true,
         rewrite: (p) => p.replace(/^\/api\/substation/, ''),
       },
       '/api': {
-        target: 'http://localhost:3001',
+        target: 'http://localhost:3002',
         changeOrigin: true,
         rewrite: (p) => p.replace(/^\/api/, ''),
       },

@@ -4,15 +4,17 @@
   "version": "2.1.0",
   "scripts": {
     "dev": "concurrently \"vite\" \"npm run api\"",
-    "api": "json-server --watch mock-db/db.json --port 3001 --routes mock-db/routes.json",
+    "api": "json-server --watch mock-db/db.json --port 3002 --routes mock-db/routes.json",
     "build": "tsc && vite build",
     "lint": "eslint src --ext .ts,.tsx",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.2.5",
     "@hookform/resolvers": "^5.2.2",
     "@tanstack/react-query": "^5.100.10",
     "@xyflow/react": "^12.10.2",
+    "antd": "^6.4.4",
     "elkjs": "^0.11.1",
     "i18next": "^23.11.5",
     "i18next-http-backend": "^2.5.2",
@@ -24,6 +26,7 @@
     "react-hook-form": "^7.55.0",
     "react-i18next": "^14.1.2",
     "react-router-dom": "^6.23.1",
+    "web-worker": "^1.5.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {

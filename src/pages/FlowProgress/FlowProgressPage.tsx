@@ -1,3 +1,4 @@
+// src/pages/FlowProgress/FlowProgressPage.tsx
 import { useEffect, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
@@ -26,6 +27,8 @@ import { Sidebar } from './components/Sidebar'
 import { NodeFormModal } from './components/NodeFormModal'
 import { NodeInfoPanel } from './components/NodeInfoPanel'
 import { useAppContext } from '@/context/AppContext'
+import { Button, Spin, Alert, Flex } from 'antd'
+import { LayoutOutlined } from '@ant-design/icons'
 
 const TOPBAR_H = 52
 
@@ -123,29 +126,28 @@ function FlowProgressContent() {
 
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500 mx-auto" />
-          <p className="mt-3 text-sm text-slate-500">{t('common:loading')}</p>
-        </div>
-      </div>
+      <Flex justify="center" align="center" style={{ height: '100%' }}>
+        <Spin size="large" tip={t('common:loading')} />
+      </Flex>
     )
   }
 
   if (error) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        <div className="text-center p-6 bg-white rounded-lg border border-red-200">
-          <p className="text-red-600 font-medium mb-2">{t('common:error')}</p>
-          <p className="text-sm text-slate-500">{error}</p>
-        </div>
-      </div>
+      <Flex justify="center" align="center" style={{ height: '100%', padding: '24px' }}>
+        <Alert
+          message={t('common:error')}
+          description={error}
+          type="error"
+          showIcon
+          style={{ maxWidth: 500 }}
+        />
+      </Flex>
     )
   }
 
   return (
     <div className="relative w-full h-full" style={{ height: `calc(100vh - ${TOPBAR_H}px)` }}>
-      {/* Full‑size canvas – no margin/padding */}
       <div className="absolute inset-0">
         <ReactFlow
           nodes={nodes}
@@ -164,27 +166,28 @@ function FlowProgressContent() {
           <MiniMap />
           <Controls />
           <Panel position="bottom-center">
-            <div className="flex gap-2 bg-white px-3 py-2 rounded-lg shadow border border-slate-200">
-              <button
+            <Flex gap="small" style={{ background: 'white', padding: '8px 12px', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.12)' }}>
+              <Button
+                type="primary"
+                icon={<LayoutOutlined />}
                 onClick={() => onLayout('DOWN')}
                 disabled={isLayouting}
-                className="px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600 transition-colors disabled:opacity-50"
               >
                 {t('verticalLayout')}
-              </button>
-              <button
+              </Button>
+              <Button
+                type="primary"
+                icon={<LayoutOutlined rotate={90} />}
                 onClick={() => onLayout('RIGHT')}
                 disabled={isLayouting}
-                className="px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600 transition-colors disabled:opacity-50"
               >
                 {t('horizontalLayout')}
-              </button>
-            </div>
+              </Button>
+            </Flex>
           </Panel>
         </ReactFlow>
       </div>
 
-      {/* Overlay sidebar – no canvas shifting */}
       <Sidebar
         nodes={nodes}
         edges={edges}
@@ -194,7 +197,6 @@ function FlowProgressContent() {
         onDeleteNode={deleteNode}
       />
 
-      {/* Overlay info panel – opposite side */}
       <NodeInfoPanel
         selectedNodeId={selectedNode?.id ?? null}
         onClose={() => setSelectedNode(null)}

@@ -30,5 +30,7 @@
   "substationName": "Substation Name",
   "location": "Location",
   "componentCount": "Components",
-  "actions": "Actions"
+  "actions": "Actions",
+  "createNew": "Create New",
+  "viewAll": "View All"
 }

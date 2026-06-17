@@ -10,13 +10,17 @@ i18n
   .init({
     lng: savedLang,
     fallbackLng: 'en',
-    ns: ['common', 'nav', 'dashboard', 'flow'],
+    ns: ['common', 'nav', 'dashboard', 'flow', 'tree', 'substation'],
     defaultNS: 'common',
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
+      requestOptions: {
+        cache: 'no-store',
+      },
     },
     interpolation: { escapeValue: false },
     react: { useSuspense: false },
+    cache: { enabled: false },
   })
 
 export default i18n

@@ -7,6 +7,8 @@
   "userMenuAriaLabel": "User menu",
   "loading": "Loading…",
   "error": "Something went wrong",
+  "userManagement": "User Management",
+  "systemSettings": "System Settings",
   "save": "Save",
   "cancel": "Cancel",
   "delete": "Delete",
@@ -77,5 +79,6 @@
   "lastLogin": "Last Login",
   "activeSessions": "Active Sessions",
   "profile": "Profile",
-  "logout": "Logout"
+  "logout": "Logout",
+  "addChild": "Add Child"
 }

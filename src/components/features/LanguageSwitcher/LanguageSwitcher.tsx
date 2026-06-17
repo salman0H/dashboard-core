@@ -1,39 +1,33 @@
+import { Segmented } from 'antd'
 import { useAppContext } from '@/context/AppContext'
 import type { Lang } from '@/types/app.types'
 import { SUPPORTED_LANGS } from '@/types/app.types'
+import i18n from '@/config/i18n'
 
 const LANG_LABELS: Record<Lang, string> = {
   en: 'EN',
   fa: 'FA',
 }
 
-/**
- * Pure component — output is a function of context only.
- * No local state; calls setLang from context on click.
- */
 export function LanguageSwitcher() {
   const { lang, setLang } = useAppContext()
 
+  const handleChange = async (value: Lang) => {
+    setLang(value)
+    await i18n.changeLanguage(value)
+    await i18n.reloadResources()
+  }
+
   return (
-    <div
-      className="flex bg-app-bg border border-border rounded-full overflow-hidden"
-      role="group"
-      aria-label="Language switcher"
-    >
-      {SUPPORTED_LANGS.map((l) => (
-        <button
-          key={l}
-          onClick={() => setLang(l)}
-          aria-pressed={lang === l}
-          className={`px-2.5 py-0.5 text-xs font-medium transition-colors border-none cursor-pointer
-            ${lang === l
-              ? 'bg-accent text-white rounded-full'
-              : 'bg-transparent text-slate-500 hover:text-slate-900'
-            }`}
-        >
-          {LANG_LABELS[l]}
-        </button>
-      ))}
-    </div>
+    <Segmented
+      options={SUPPORTED_LANGS.map((l) => ({
+        label: LANG_LABELS[l],
+        value: l,
+      }))}
+      value={lang}
+      onChange={handleChange}
+      size="small"
+      className="!bg-app-bg !border !border-border !rounded-full"
+    />
   )
 }

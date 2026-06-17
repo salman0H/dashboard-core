@@ -2725,5 +2725,32 @@
         "style": "straight"
       }
     ]
-  }
+  },
+  "dashboardWidgets": [
+    {
+      "id": "stats",
+      "type": "stats",
+      "order": 2
+    },
+    {
+      "id": "substations-stats",
+      "type": "substationsStats",
+      "order": 1
+    },
+    {
+      "id": "quick-actions",
+      "type": "quickActions",
+      "order": 4
+    },
+    {
+      "id": "substationsTable-1781684095897",
+      "type": "substationsTable",
+      "order": 3
+    },
+    {
+      "id": "userProfile-1781687479336",
+      "type": "userProfile",
+      "order": 0
+    }
+  ]
 }

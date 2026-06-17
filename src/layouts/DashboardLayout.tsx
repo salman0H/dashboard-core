@@ -29,20 +29,20 @@ export function DashboardLayout() {
     <div
       id="app-shell"
       dir={dir}
-      className={`flex flex-col min-h-screen bg-app-bg ${dir === 'rtl' ? 'font-rtl' : ''}`}
+      className={`flex flex-col h-screen bg-app-bg ${dir === 'rtl' ? 'font-rtl' : ''}`}
     >
-      <div className="sticky top-0 z-50">
+      <div className="sticky top-0 z-50 shrink-0">
         <TopBar
           onToggleSidebar={() => setSidebarOpen((s) => !s)}
           sidebarOpen={sidebarOpen}
         />
       </div>
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 min-h-0 overflow-hidden">
         <AppSidebar open={sidebarOpen} />
 
         <main
-          className={`flex-1 ${isFluid ? 'overflow-hidden p-0' : 'overflow-y-auto p-6'}`}
+          className={`flex-1 min-h-0 ${isFluid ? 'overflow-hidden p-0' : 'overflow-y-auto p-6'}`}
         >
           <Suspense fallback={<PageLoadingFallback />}>
             <Outlet />

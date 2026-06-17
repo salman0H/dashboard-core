@@ -37,7 +37,7 @@ export const Sidebar = ({
   const [pendingParentId, setPendingParentId] = useState<string | null>(null)
 
   const edgeStyle = isRtl ? { right: 0 } : { left: 0 }
-  const sideBarWidth = isExpanded ? 'w-[30%]' : 'w-[3.5%]'
+  const sideBarWidth = isExpanded ? 'w-[30%]' : 'w-[4.5%]'
   const sideBarHeight = !isExpanded ? 'h-[5%]' : ''
 
   const typeOptions = [

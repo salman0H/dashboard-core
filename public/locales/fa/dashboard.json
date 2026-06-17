@@ -32,5 +32,16 @@
   "componentCount": "تعداد قطعات",
   "actions": "عملیات",
   "createNew": "ایجاد جدید",
-  "viewAll": "مشاهده همه"
+  "viewAll": "مشاهده همه",
+  "dragHint": "ویجت‌ها را برای تغییر ترتیب جابجا کنید",
+  "addWidget": "افزودن ویجت",
+  "removeWidgetTitle": "این ویجت حذف شود؟",
+  "removeWidgetDescription": "می‌توانید بعداً آن را از «افزودن ویجت» دوباره اضافه کنید.",
+  "dragWidget": "برای جابجایی بکشید",
+  "emptyDashboard": "هنوز ویجتی در داشبورد شما نیست. برای شروع یک ویجت اضافه کنید.",
+  "widgetStats": "آمار فلوچارت",
+  "widgetSubstationsStats": "آمار پست‌ها",
+  "widgetUserProfile": "پروفایل کاربر",
+  "widgetQuickActions": "دسترسی سریع",
+  "widgetSubstationsTable": "جدول پست‌ها"
 }

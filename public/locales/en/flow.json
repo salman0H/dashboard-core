@@ -5,7 +5,7 @@
   "process": "Process",
   "inputOutput": "Input / Output",
   "decision": "Decision",
-  "addNodeButton": "+ Add Node",
+  "addNodeButton": "Add Node",
   "nodeHierarchy": "Node Hierarchy",
   "verticalLayout": "Vertical Layout",
   "horizontalLayout": "Horizontal Layout",

@@ -207,7 +207,7 @@ export const NodeFormModal = ({
       onCancel={handleClose}
       footer={null}
       width={520}
-      destroyOnClose
+      destroyOnHidden
     >
       {error && (
         <Alert

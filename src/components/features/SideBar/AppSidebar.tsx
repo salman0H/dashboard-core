@@ -96,10 +96,9 @@ export function AppSidebar({ open }: AppSidebarProps) {
 
   return (
     <aside
-      className={`shrink-0 flex flex-col bg-sidebar border-e border-sidebar-border overflow-hidden transition-all duration-200 ease-in-out ${
+      className={`shrink-0 flex flex-col h-full bg-sidebar border-e border-sidebar-border overflow-hidden transition-all duration-200 ease-in-out ${
         open ? 'w-60' : 'w-[58px]'
       }`}
-      style={{ minHeight: 'calc(100vh - 52px)' }}
     >
       {/* Logo area (only when collapsed) */}
       {!open && (

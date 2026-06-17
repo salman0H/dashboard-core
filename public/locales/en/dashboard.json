@@ -32,5 +32,16 @@
   "componentCount": "Components",
   "actions": "Actions",
   "createNew": "Create New",
-  "viewAll": "View All"
+  "viewAll": "View All",
+  "dragHint": "Drag widgets to reorder them",
+  "addWidget": "Add widget",
+  "removeWidgetTitle": "Remove this widget?",
+  "removeWidgetDescription": "You can add it back later from \"Add widget\".",
+  "dragWidget": "Drag to reorder",
+  "emptyDashboard": "No widgets on your dashboard yet. Add one to get started.",
+  "widgetStats": "Flow Stats",
+  "widgetSubstationsStats": "Substation Stats",
+  "widgetUserProfile": "User Profile",
+  "widgetQuickActions": "Quick Actions",
+  "widgetSubstationsTable": "Substations Table"
 }

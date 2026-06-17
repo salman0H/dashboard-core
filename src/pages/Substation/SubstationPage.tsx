@@ -1,19 +1,11 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useDiagramData } from './hooks/useDiagramData'
 import { DiagramCanvas } from './components/DiagramCanvas'
-import { Spin, Alert, Result, Typography, ConfigProvider } from 'antd'
+import { Spin, Alert, Result, ConfigProvider } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useAppContext } from '@/context/AppContext'
 
-const { Text } = Typography
-
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: true, retry: 1 } },
-})
-
 function SubstationContent() {
   const { t } = useTranslation('substation')
-  const { dir } = useAppContext()
   const { data, isLoading, error } = useDiagramData(3000)
 
   if (isLoading) {
@@ -60,12 +52,12 @@ function SubstationContent() {
 export function SubstationPage() {
   const { dir } = useAppContext()
 
+  // Note: no QueryClientProvider here — the app-level provider in
+  // src/app/providers.tsx already supplies a shared QueryClient.
   return (
     <ConfigProvider direction={dir}>
       <div className="flex flex-col" style={{ height: 'calc(100vh - 52px)' }}>
-        <QueryClientProvider client={queryClient}>
-          <SubstationContent />
-        </QueryClientProvider>
+        <SubstationContent />
       </div>
     </ConfigProvider>
   )

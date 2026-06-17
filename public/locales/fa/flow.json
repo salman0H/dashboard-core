@@ -5,7 +5,7 @@
   "process": "فرآیند",
   "inputOutput": "ورودی / خروجی",
   "decision": "تصمیم",
-  "addNodeButton": "+ افزودن گره",
+  "addNodeButton": "افزودن گره",
   "nodeHierarchy": "سلسله‌مراتب گره‌ها",
   "verticalLayout": "چیدمان عمودی",
   "horizontalLayout": "چیدمان افقی",

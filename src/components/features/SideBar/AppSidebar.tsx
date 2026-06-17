@@ -1,51 +1,98 @@
-import { NavLink } from 'react-router-dom'
+// src/components/features/SideBar/AppSidebar.tsx
+import { Menu, Divider } from 'antd'
+import type { MenuProps } from 'antd'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import {
-  LayoutDashboard,
-  ChartBar,
-  Folder,
-  Network,
-  User,
-  Settings,
-  type LucideIcon,
-} from 'lucide-react'
 import { useMenu } from '@/hooks/useMenu'
-import type { MenuItem } from '@/services/menu.service'
+import { useAppContext } from '@/context/AppContext'
+import { useEffect, useState } from 'react'
+
+// Ant Design icons
+import {
+  DashboardOutlined,
+  BarChartOutlined,
+  FolderOutlined,
+  ApartmentOutlined,
+  UserOutlined,
+  SettingOutlined,
+  LogoutOutlined,
+} from '@ant-design/icons'
 
 interface AppSidebarProps {
   open: boolean
 }
 
-interface BottomItem {
-  id: string
-  labelKey: string
-  icon: string
-  route?: string
-  badge?: number
-  badgeVariant?: 'red' | 'amber'
+// Map icon names from API to Ant Design icons
+const iconMap: Record<string, React.ReactNode> = {
+  'ti-layout-dashboard': <DashboardOutlined />,
+  'ti-chart-bar': <BarChartOutlined />,
+  'ti-folder': <FolderOutlined />,
+  'ti-topology-ring': <ApartmentOutlined />,
 }
 
-const bottomItems: BottomItem[] = [
-  { id: 'user-management', labelKey: 'userManagement', icon: 'User', route: '#' },
-  { id: 'system-settings', labelKey: 'systemSettings', icon: 'Settings', route: '#' },
-]
-
-const iconMap: Record<string, LucideIcon> = {
-  'ti-layout-dashboard': LayoutDashboard,
-  'ti-chart-bar': ChartBar,
-  'ti-folder': Folder,
-  'ti-topology-ring': Network,
-  'User': User,
-  'Settings': Settings,
-}
-
-function getIcon(iconName: string): LucideIcon {
-  return iconMap[iconName] || Folder // fallback
+function getIcon(iconName: string): React.ReactNode {
+  return iconMap[iconName] || <FolderOutlined />
 }
 
 export function AppSidebar({ open }: AppSidebarProps) {
+  const { t } = useTranslation(['nav', 'common'])
+  const { dir } = useAppContext()
+  const navigate = useNavigate()
+  const location = useLocation()
   const { sections } = useMenu()
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([])
+
   const allItems = sections.flatMap((s) => s.items)
+
+  // Sync selected menu item with current route
+  useEffect(() => {
+    const currentPath = location.pathname
+    const matchedItem = allItems.find((item) => item.route === currentPath)
+    if (matchedItem) {
+      setSelectedKeys([matchedItem.id])
+    } else if (currentPath === '/') {
+      setSelectedKeys(['dashboard'])
+    } else {
+      setSelectedKeys([])
+    }
+  }, [location.pathname, allItems])
+
+  // Build main menu items
+  const menuItems: MenuProps['items'] = allItems.map((item) => ({
+    key: item.id,
+    icon: getIcon(item.icon),
+    label: t(item.labelKey),
+    onClick: () => navigate(item.route),
+  }))
+
+  // Bottom menu items (user, settings, logout)
+  const bottomMenuItems: MenuProps['items'] = [
+    {
+      key: 'user-management',
+      icon: <UserOutlined />,
+      label: t('common:userManagement'),
+      onClick: () => navigate('#'),
+    },
+    {
+      key: 'system-settings',
+      icon: <SettingOutlined />,
+      label: t('common:systemSettings'),
+      onClick: () => navigate('#'),
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: 'logout',
+      icon: <LogoutOutlined />,
+      label: t('common:logout'),
+      danger: true,
+      onClick: () => {
+        // Handle logout
+        console.log('Logout clicked')
+      },
+    },
+  ]
 
   return (
     <aside
@@ -54,83 +101,42 @@ export function AppSidebar({ open }: AppSidebarProps) {
       }`}
       style={{ minHeight: 'calc(100vh - 52px)' }}
     >
-      {/* Main nav */}
-      <nav className="flex-1 px-2 py-3 space-y-0.5 overflow-y-auto overflow-x-hidden scrollbar-thin">
-        {allItems.map((item) => (
-          <SidebarNavItem key={item.id} item={item} expanded={open} />
-        ))}
-      </nav>
+      {/* Logo area (only when collapsed) */}
+      {!open && (
+        <div className="flex items-center justify-center py-3">
+          <div className="w-8 h-8 bg-accent rounded-md grid place-items-center text-white text-sm font-bold">
+            C
+          </div>
+        </div>
+      )}
+
+      {/* Main navigation */}
+      <div className="flex-1 overflow-y-auto overflow-x-hidden px-2 py-3">
+        <Menu
+          mode="inline"
+          selectedKeys={selectedKeys}
+          items={menuItems}
+          inlineCollapsed={!open}
+          inlineIndent={16}
+          direction={dir}
+          className="!border-none !bg-transparent"
+          // Override default antd styles to match our design
+          style={{ width: '100%' }}
+        />
+      </div>
 
       {/* Bottom items */}
-      <div className="px-2 pb-3 pt-3 space-y-0.5 border-t border-sidebar-border">
-        {bottomItems.map((item) => (
-          <SidebarBottomItem key={item.id} item={item} expanded={open} />
-        ))}
+      <div className="px-2 pb-3 pt-3 border-t border-sidebar-border">
+        <Menu
+          mode="inline"
+          items={bottomMenuItems}
+          inlineCollapsed={!open}
+          inlineIndent={16}
+          direction={dir}
+          className="!border-none !bg-transparent"
+          style={{ width: '100%' }}
+        />
       </div>
     </aside>
-  )
-}
-
-function SidebarNavItem({ item, expanded }: { item: MenuItem; expanded: boolean }) {
-  const { t } = useTranslation('nav')
-  const Icon = getIcon(item.icon)
-
-  return (
-    <NavLink
-      to={item.route}
-      end={item.route === '/'}
-      className={({ isActive }) =>
-        `relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
-         transition-all duration-150 group border
-         ${isActive
-           ? 'bg-sidebar-active text-sidebar-primary border-sidebar-primary-border'
-           : 'text-sidebar-muted hover:text-sidebar-text hover:bg-sidebar-hover border-transparent'
-         } ${!expanded && 'justify-center px-2'}`
-      }
-      title={!expanded ? t(item.labelKey) : undefined}
-    >
-      {({ isActive }) => (
-        <>
-          {isActive && (
-            <span className="absolute start-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-accent rounded-e-full" />
-          )}
-          <Icon
-            size={20}
-            className={`shrink-0 transition-colors ${
-              isActive ? 'text-accent' : 'text-sidebar-icon group-hover:text-sidebar-text'
-            }`}
-          />
-          {expanded && (
-            <span className="flex-1 truncate text-start">{t(item.labelKey)}</span>
-          )}
-        </>
-      )}
-    </NavLink>
-  )
-}
-
-function SidebarBottomItem({ item, expanded }: { item: BottomItem; expanded: boolean }) {
-  const { t } = useTranslation('common')
-  const Icon = getIcon(item.icon)
-
-  return (
-    <button
-      className={`relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
-        transition-all duration-150 group border border-transparent
-        text-sidebar-muted hover:text-sidebar-text hover:bg-sidebar-hover
-        ${!expanded && 'justify-center px-2'}`}
-      title={!expanded ? t(item.labelKey) : undefined}
-    >
-      <Icon
-        size={20}
-        className="shrink-0 text-sidebar-icon group-hover:text-sidebar-text"
-      />
-      {expanded && (
-        <span className="flex-1 truncate text-start">{t(item.labelKey)}</span>
-      )}
-      {!expanded && item.badge !== undefined && (
-        <span className="absolute top-1.5 end-1.5 w-2 h-2 rounded-full bg-red-500 shrink-0" />
-      )}
-    </button>
   )
 }

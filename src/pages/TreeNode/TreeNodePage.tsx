@@ -1,13 +1,16 @@
-// File: src/pages/TreeNode/TreeNodePage.tsx
+// src/pages/TreeNode/TreeNodePage.tsx
 import { useState, useEffect } from 'react'
+import { useAppContext } from '@/context/AppContext'
 import { TreeMenu } from './components/TreeMenu'
 import { DetailsPanel } from './components/DetailsPanel'
 import { ContextMenu } from './components/ContextMenu'
 import type { TreeNode, NodeDetails } from './types'
-import { useAppContext } from '@/context/AppContext'
+import { Row, Col, Spin, Alert, ConfigProvider } from 'antd'
+import { useTranslation } from 'react-i18next'
 
 export function TreeNodePage() {
   const { dir } = useAppContext()
+  const { t } = useTranslation('tree')
   const isRtl = dir === 'rtl'
 
   const [treeData, setTreeData] = useState<TreeNode[]>([])
@@ -90,53 +93,57 @@ export function TreeNodePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
+        <Spin size="large" tip={t('loading')} />
       </div>
     )
   }
+
   if (fetchError) {
     return (
-      <div className="flex items-center justify-center h-full text-red-500 text-sm">
-        خطا: {fetchError}
+      <div className="p-6">
+        <Alert message={t('error')} description={fetchError} type="error" showIcon />
       </div>
     )
   }
 
-  // In RTL: tree on right, details on left. In LTR: tree on left, details on right.
-  const treeOrder = isRtl ? 'order-1' : 'order-0'
-  const detailsOrder = isRtl ? 'order-0' : 'order-1'
-  const elementsOrder = isRtl ? 'flex-row-reverse' : '';
+  // ترتیب ستون‌ها در RTL برعکس می‌شود
+  const treeColOrder = isRtl ? 2 : 1
+  const detailsColOrder = isRtl ? 1 : 2
 
   return (
-    <div className={`flex h-full w-full bg-gray-50 overflow-hidden ${elementsOrder}`} dir={dir}>
-      <div className={`w-1/2 p-6 overflow-hidden ${treeOrder}`}>
-        {treeData.length > 0 ? (
-          <TreeMenu
-            data={treeData}
-            onNodeClick={handleNodeClick}
-            onNodeContextMenu={handleNodeContextMenu}
+    <ConfigProvider direction={dir}>
+      <div className="h-full w-full bg-gray-50 overflow-hidden" dir={dir}>
+        <Row gutter={[16, 16]} style={{ height: '100%', padding: '16px' }}>
+          <Col xs={24} lg={12} order={treeColOrder} style={{ height: '100%' }}>
+            {treeData.length > 0 ? (
+              <TreeMenu
+                data={treeData}
+                onNodeClick={handleNodeClick}
+                onNodeContextMenu={handleNodeContextMenu}
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full text-sm text-slate-400">
+                {t('noData')}
+              </div>
+            )}
+          </Col>
+          <Col xs={24} lg={12} order={detailsColOrder} style={{ height: '100%', overflow: 'auto' }}>
+            <DetailsPanel details={selectedDetails} loading={false} error={null} />
+          </Col>
+        </Row>
+
+        {contextMenu.visible && (
+          <ContextMenu
+            x={contextMenu.x} y={contextMenu.y}
+            nodeId={contextMenu.nodeId} nodeName={contextMenu.nodeName}
+            hasChildren={contextMenu.hasChildren}
+            onClose={() => setContextMenu((s) => ({ ...s, visible: false }))}
+            onAddChild={handleAddChild}
+            onShowChildren={handleShowChildren}
+            onCopy={handleCopy}
           />
-        ) : (
-          <div className="flex items-center justify-center h-full text-sm text-slate-400">
-            داده‌ای یافت نشد
-          </div>
         )}
       </div>
-      <div className={`w-1/2 p-6 overflow-auto ${detailsOrder}`}>
-        <DetailsPanel details={selectedDetails} loading={false} error={null} />
-      </div>
-
-      {contextMenu.visible && (
-        <ContextMenu
-          x={contextMenu.x} y={contextMenu.y}
-          nodeId={contextMenu.nodeId} nodeName={contextMenu.nodeName}
-          hasChildren={contextMenu.hasChildren}
-          onClose={() => setContextMenu((s) => ({ ...s, visible: false }))}
-          onAddChild={handleAddChild}
-          onShowChildren={handleShowChildren}
-          onCopy={handleCopy}
-        />
-      )}
-    </div>
+    </ConfigProvider>
   )
 }

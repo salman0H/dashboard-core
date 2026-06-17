@@ -79,5 +79,6 @@
   "lastLogin": "Last Login",
   "activeSessions": "Active Sessions",
   "profile": "Profile",
-  "logout": "Logout"
+  "logout": "Logout",
+  "addChild": "Add Child"
 }

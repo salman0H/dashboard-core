@@ -1,20 +1,39 @@
+// src/app/providers.tsx
 import { type ReactNode } from 'react'
 import { AppProvider } from '@/context/AppContext'
 import { ErrorBoundary } from '@/components/primitives/ErrorBoundary/ErrorBoundary'
-// i18n must be imported for its side-effect (initialization) before any component uses it
+import { ConfigProvider } from 'antd'
+import faIR from 'antd/locale/fa_IR'
+import enUS from 'antd/locale/en_US'
+import { useAppContext } from '@/context/AppContext'
 import '@/config/i18n'
 
-/**
- * AppProviders — wraps the entire tree with all context providers.
- * No Suspense needed here since react.useSuspense is false in i18n config —
- * components render immediately and show keys briefly until translations load.
- * ErrorBoundary catches any uncaught errors from the full tree.
- */
+function AntDesignProvider({ children }: { children: ReactNode }) {
+  const { lang, dir } = useAppContext()
+  const locale = lang === 'fa' ? faIR : enUS
+
+  return (
+    <ConfigProvider
+      direction={dir}
+      locale={locale}
+      theme={{
+        token: {
+          fontFamily: dir === 'rtl' ? 'Vazirmatn, sans-serif' : 'IBM Plex Sans, sans-serif',
+        },
+      }}
+    >
+      {children}
+    </ConfigProvider>
+  )
+}
+
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <ErrorBoundary>
       <AppProvider>
-        {children}
+        <AntDesignProvider>
+          {children}
+        </AntDesignProvider>
       </AppProvider>
     </ErrorBoundary>
   )

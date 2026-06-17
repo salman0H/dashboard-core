@@ -16,5 +16,7 @@
   "online": "Online",
   "offline": "Offline",
   "fault": "Fault",
-  "maintenance": "Maintenance"
+  "maintenance": "Maintenance",
+  "noData": "No data available",
+  "noDataDescription": "The diagram data could not be loaded. Please check the server."
 }

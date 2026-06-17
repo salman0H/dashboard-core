@@ -1,32 +1,52 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { nodeFormSchema, NodeFormData } from '../schemas/nodeFormSchema';
-import * as api from '../services/api';
-import { nanoid } from "nanoid"
+// src/pages/FlowProgress/components/NodeFormModal.tsx
+import { useEffect, useState } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { nodeFormSchema, NodeFormData } from '../schemas/nodeFormSchema'
+import * as api from '../services/api'
+import { nanoid } from 'nanoid'
+import { Modal, Form, Input, Select, Button, Space, Typography, Alert } from 'antd'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
+
+const { Text } = Typography
 
 interface NodeFormModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  nodeType: 'start' | 'process' | 'input' | 'decision';
-  parentId: string | null;
-  existingNodeId?: string;
-  onSuccess: (nodeId: string, formDataId: string) => void;
+  isOpen: boolean
+  onClose: () => void
+  nodeType: 'start' | 'process' | 'input' | 'decision'
+  parentId: string | null
+  existingNodeId?: string
+  onSuccess: (nodeId: string, formDataId: string) => void
 }
 
-export const NodeFormModal = ({ 
-  isOpen, 
-  onClose, 
-  nodeType, 
-  parentId, 
-  existingNodeId,
-  onSuccess 
-}: NodeFormModalProps) => {
-  const [nextProcesses, setNextProcesses] = useState<string[]>([]);
-  const [previousProcess, setPreviousProcess] = useState<{ id: string; name: string; type: string } | null>(null);
-  const [loading, setLoading] = useState(false);
+const typeOptions = [
+  { value: 'start', label: 'Start/End' },
+  { value: 'process', label: 'Process' },
+  { value: 'input', label: 'Input/Output' },
+  { value: 'decision', label: 'Decision' },
+]
 
-  const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<NodeFormData>({
+const finalProcessOptions = [
+  { value: '', label: 'Select status' },
+  { value: 'yes', label: 'Yes - Final Node' },
+  { value: 'no', label: 'No - Continue' },
+  { value: 'conditional', label: 'Conditional' },
+]
+
+export const NodeFormModal = ({
+  isOpen,
+  onClose,
+  nodeType,
+  parentId,
+  existingNodeId,
+  onSuccess,
+}: NodeFormModalProps) => {
+  const [nextProcesses, setNextProcesses] = useState<string[]>([])
+  const [previousProcess, setPreviousProcess] = useState<{ id: string; name: string; type: string } | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const { control, handleSubmit, reset, setValue, watch } = useForm<NodeFormData>({
     resolver: zodResolver(nodeFormSchema),
     defaultValues: {
       nodeId: '',
@@ -36,239 +56,243 @@ export const NodeFormModal = ({
       previousProcess: null,
       finalProcess: '',
       type: nodeType,
-      description: ''
-    }
-  });
+      description: '',
+    },
+  })
+
+  const watchedType = watch('type')
 
   useEffect(() => {
     if (existingNodeId && isOpen) {
-      loadExistingData();
+      loadExistingData()
     }
-  }, [existingNodeId, isOpen]);
+  }, [existingNodeId, isOpen])
 
   useEffect(() => {
     if (isOpen && parentId) {
-      loadConnectedProcesses();
+      loadConnectedProcesses()
     }
-  }, [parentId, isOpen]);
+  }, [parentId, isOpen])
+
+  useEffect(() => {
+    setValue('type', nodeType)
+  }, [nodeType, setValue])
 
   const loadExistingData = async () => {
-    if (!existingNodeId) return;
-    
+    if (!existingNodeId) return
     try {
-      const formData = await api.fetchFormDataByNodeId(existingNodeId);
+      const formData = await api.fetchFormDataByNodeId(existingNodeId)
       if (formData) {
-        setValue('label', formData.label);
-        setValue('executionProcess', formData.executionProcess);
-        setValue('nextProcess', formData.nextProcess);
-        setValue('previousProcess', formData.previousProcess);
-        setValue('finalProcess', formData.finalProcess || '');
-        setValue('description', formData.description || '');
-        setValue('type', formData.type);
-        
-        if (formData.nextProcess.length > 0) {
-          setNextProcesses(formData.nextProcess);
-        }
-        if (formData.previousProcess) {
-          setPreviousProcess(formData.previousProcess);
-        }
+        setValue('label', formData.label)
+        setValue('executionProcess', formData.executionProcess)
+        setValue('nextProcess', formData.nextProcess)
+        setValue('previousProcess', formData.previousProcess)
+        setValue('finalProcess', formData.finalProcess || '')
+        setValue('description', formData.description || '')
+        setValue('type', formData.type)
+        if (formData.nextProcess.length > 0) setNextProcesses(formData.nextProcess)
+        if (formData.previousProcess) setPreviousProcess(formData.previousProcess)
       }
     } catch (error) {
-      console.error('Failed to load form data:', error);
+      console.error('Failed to load form data:', error)
+      setError('Failed to load existing data')
     }
-  };
+  }
 
   const loadConnectedProcesses = async () => {
-    if (!parentId) return;
-
+    if (!parentId) return
     try {
       const [edges, nodes, formDataList] = await Promise.all([
         api.fetchEdges(),
         api.fetchNodes(),
-        api.fetchAllFormData()
-      ]);
+        api.fetchAllFormData(),
+      ])
 
-      // Get next processes (children)
-      const outgoingEdges = edges.filter(edge => edge.source === parentId);
-      const nextNodeIds = outgoingEdges.map(edge => edge.target);
-      const nextNodeNames: string[] = [];
-      
+      const outgoingEdges = edges.filter((edge) => edge.source === parentId)
+      const nextNodeIds = outgoingEdges.map((edge) => edge.target)
+      const nextNodeNames: string[] = []
       for (const nodeId of nextNodeIds) {
-        const node = nodes.find(n => n.id === nodeId);
+        const node = nodes.find((n) => n.id === nodeId)
         if (node) {
-          const formData = formDataList.find(fd => fd.nodeId === node.id);
-          if (formData) {
-            nextNodeNames.push(formData.label);
-          } else {
-            nextNodeNames.push(node.id);
-          }
+          const formData = formDataList.find((fd) => fd.nodeId === node.id)
+          nextNodeNames.push(formData?.label || node.id)
         }
       }
-      setNextProcesses(nextNodeNames);
-      setValue('nextProcess', nextNodeNames);
+      setNextProcesses(nextNodeNames)
+      setValue('nextProcess', nextNodeNames)
 
-      // Get previous process (parent)
-      const incomingEdges = edges.filter(edge => edge.target === parentId);
+      const incomingEdges = edges.filter((edge) => edge.target === parentId)
       if (incomingEdges.length > 0) {
-        const parentNode = nodes.find(n => n.id === incomingEdges[0].source);
+        const parentNode = nodes.find((n) => n.id === incomingEdges[0].source)
         if (parentNode) {
-          const parentFormData = formDataList.find(fd => fd.nodeId === parentNode.id);
+          const parentFormData = formDataList.find((fd) => fd.nodeId === parentNode.id)
           const previousData = {
             id: parentNode.id,
             name: parentFormData?.label || parentNode.id,
-            type: parentNode.type
-          };
-          setPreviousProcess(previousData);
-          setValue('previousProcess', previousData);
+            type: parentNode.type,
+          }
+          setPreviousProcess(previousData)
+          setValue('previousProcess', previousData)
         }
       }
     } catch (error) {
-      console.error('Failed to load connected processes:', error);
+      console.error('Failed to load connected processes:', error)
     }
-  };
+  }
 
   const onSubmit = async (data: NodeFormData) => {
-    setLoading(true);
+    setLoading(true)
+    setError(null)
     try {
-      const generateId = nanoid(11); // create a id
-      const nodeId = existingNodeId || generateId;
+      const nodeId = existingNodeId || nanoid(11)
 
       const formDataPayload = {
-        nodeId: nodeId,
+        nodeId,
         label: data.label,
         executionProcess: data.executionProcess,
         nextProcess: nextProcesses,
-        previousProcess: previousProcess,
-        finalProcess: data.finalProcess,
+        previousProcess,
+        finalProcess: data.finalProcess || '',
         type: data.type,
-        description: data.description || ''
+        description: data.description || '',
       }
-      const savedFormData = await api.saveOrUpdateFormData(formDataPayload);
+
+      const savedFormData = await api.saveOrUpdateFormData(formDataPayload)
 
       if (!existingNodeId) {
         const newNode: api.NodeData = {
           id: nodeId,
           position: { x: Math.random() * 400 + 100, y: Math.random() * 300 + 100 },
           type: data.type,
-          parentId: parentId,
-          formDataId: savedFormData.id
-        };
-
-        const savedNode = await api.saveNode(newNode);
+          parentId,
+          formDataId: savedFormData.id,
+        }
+        const savedNode = await api.saveNode(newNode)
 
         if (parentId) {
           const newEdge: api.EdgeData = {
             id: `edge-${Date.now()}`,
             source: parentId,
             target: savedNode.id,
-            type: 'step'
-          };
-          await api.saveEdge(newEdge);
+            type: 'step',
+          }
+          await api.saveEdge(newEdge)
         }
 
-        onSuccess(savedNode.id, savedFormData.id);
+        onSuccess(savedNode.id, savedFormData.id)
       } else {
-        onSuccess(existingNodeId, savedFormData.id);
+        onSuccess(existingNodeId, savedFormData.id)
       }
-      
-      reset();
-      onClose();
+
+      reset()
+      onClose()
     } catch (error) {
-      console.error('Failed to save node:', error);
-      alert('Failed to save node. Please try again.');
+      console.error('Failed to save node:', error)
+      setError('Failed to save node. Please try again.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleClose = () => {
-    reset();
-    onClose();
-  };
-
-  if (!isOpen) return null;
+    reset()
+    setError(null)
+    onClose()
+  }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={handleClose}>
-      <div className="bg-white rounded-lg p-6 w-[500px] max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-        <h2 className="text-xl font-bold mb-4">
-          {existingNodeId ? 'Edit' : 'Add'} {nodeType.charAt(0).toUpperCase() + nodeType.slice(1)} Node
-        </h2>
-        
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Process Name *</label>
-            <input
-              {...register("label")}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter process name"
-            />
-            {errors.label && <span className="text-red-500 text-xs">{errors.label.message}</span>}
-          </div>
+    <Modal
+      title={existingNodeId ? 'Edit Node' : `Add ${nodeType.charAt(0).toUpperCase() + nodeType.slice(1)} Node`}
+      open={isOpen}
+      onCancel={handleClose}
+      footer={null}
+      width={520}
+      destroyOnClose
+    >
+      {error && (
+        <Alert
+          message={error}
+          type="error"
+          showIcon
+          closable
+          onClose={() => setError(null)}
+          style={{ marginBottom: 16 }}
+        />
+      )}
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Execution Process *</label>
-            <input
-              {...register("executionProcess")}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Describe the execution process"
-            />
-            {errors.executionProcess && <span className="text-red-500 text-xs">{errors.executionProcess.message}</span>}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium mb-1">Final Process Status</label>
-            <select
-              {...register("finalProcess")}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+      <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
+        <Controller
+          name="label"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Form.Item
+              label="Process Name"
+              required
+              validateStatus={fieldState.error ? 'error' : ''}
+              help={fieldState.error?.message}
             >
-              <option value="">Select status</option>
-              <option value="yes">Yes - Final Node</option>
-              <option value="no">No - Continue</option>
-              <option value="conditional">Conditional</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium mb-1">Description</label>
-            <textarea
-              {...register("description")}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              rows={3}
-              placeholder="Optional description"
-            />
-          </div>
-
-          {/* Auto-populated connections info */}
-          {(nextProcesses.length > 0 || previousProcess) && (
-            <div className="mt-4 p-3 bg-gray-100 rounded">
-              <p className="text-sm">
-                <strong>Next Processes:</strong> {nextProcesses.length > 0 ? nextProcesses.join(', ') : 'None'}
-              </p>
-              <p className="text-sm mt-1">
-                <strong>Previous Process:</strong> {previousProcess ? previousProcess.name : 'None'}
-              </p>
-            </div>
+              <Input {...field} placeholder="Enter process name" />
+            </Form.Item>
           )}
+        />
 
-          <div className="flex justify-end gap-2 mt-4">
-            <button
-              type="button"
-              onClick={handleClose}
-              className="px-4 py-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300"
+        <Controller
+          name="executionProcess"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Form.Item
+              label="Execution Process"
+              required
+              validateStatus={fieldState.error ? 'error' : ''}
+              help={fieldState.error?.message}
             >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 disabled:bg-blue-300"
-            >
-              {loading ? 'Saving...' : existingNodeId ? 'Update Node' : 'Create Node'}
-            </button>
+              <Input {...field} placeholder="Describe the execution process" />
+            </Form.Item>
+          )}
+        />
+
+        <Controller
+          name="finalProcess"
+          control={control}
+          render={({ field }) => (
+            <Form.Item label="Final Process Status">
+              <Select {...field} options={finalProcessOptions} />
+            </Form.Item>
+          )}
+        />
+
+        <Controller
+          name="description"
+          control={control}
+          render={({ field }) => (
+            <Form.Item label="Description">
+              <Input.TextArea {...field} rows={3} placeholder="Optional description" />
+            </Form.Item>
+          )}
+        />
+
+        {(nextProcesses.length > 0 || previousProcess) && (
+          <div className="p-3 bg-gray-100 rounded mb-4">
+            <Space direction="vertical" size="small">
+              <Text type="secondary">
+                <strong>Next Processes:</strong> {nextProcesses.length > 0 ? nextProcesses.join(', ') : 'None'}
+              </Text>
+              <Text type="secondary">
+                <strong>Previous Process:</strong> {previousProcess ? previousProcess.name : 'None'}
+              </Text>
+            </Space>
           </div>
-        </form>
-      </div>
-    </div>
-  );
-};
+        )}
+
+        <Form.Item style={{ marginBottom: 0 }}>
+          <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="primary" htmlType="submit" loading={loading}>
+              {existingNodeId ? 'Update Node' : 'Create Node'}
+            </Button>
+          </Space>
+        </Form.Item>
+      </Form>
+    </Modal>
+  )
+}

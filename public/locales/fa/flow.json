@@ -24,5 +24,6 @@
   "sidebarCollapse": "بستن نوار کناری",
   "sidebarExpand": "باز کردن نوار کناری",
   "id": "شناسه",
-  "position": "موقعیت"
+  "position": "موقعیت",
+  "noData": "داده‌ای یافت نشد"
 }

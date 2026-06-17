@@ -1,57 +1,63 @@
-import { useTranslation } from 'react-i18next';
+// src/pages/FlowProgress/components/SelectChildTypeModal.tsx
+import { useTranslation } from 'react-i18next'
+import { Modal, Button, Grid, Card, Typography } from 'antd'
+import { 
+  PlayCircleOutlined, 
+  SettingOutlined, 
+  ImportOutlined, 
+  QuestionCircleOutlined 
+} from '@ant-design/icons'
+
+const { Text } = Typography
 
 interface SelectChildTypeModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSelectType: (type: 'start' | 'process' | 'input' | 'decision') => void;
+  isOpen: boolean
+  onClose: () => void
+  onSelectType: (type: 'start' | 'process' | 'input' | 'decision') => void
+}
+
+const typeConfig = {
+  start: { icon: <PlayCircleOutlined />, color: '#1677ff', desc: 'Start/End node' },
+  process: { icon: <SettingOutlined />, color: '#52c41a', desc: 'Process node' },
+  input: { icon: <ImportOutlined />, color: '#722ed1', desc: 'Input/Output node' },
+  decision: { icon: <QuestionCircleOutlined />, color: '#fa8c16', desc: 'Decision node' },
 }
 
 export const SelectChildTypeModal = ({ isOpen, onClose, onSelectType }: SelectChildTypeModalProps) => {
-  const { t } = useTranslation('flow');
-
-  if (!isOpen) return null;
+  const { t } = useTranslation('flow')
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={onClose}>
-      <div className="bg-white rounded-2xl p-6 w-96 shadow-2xl" onClick={(e) => e.stopPropagation()}>
-        <h3 className="text-lg font-bold mb-4 text-center">{t('selectChildType')}</h3>
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            onClick={() => onSelectType('start')}
-            className="text-right p-3 border border-gray-200 rounded-xl hover:border-blue-400 hover:bg-blue-50/50 transition-all"
-          >
-            <div className="font-semibold">{t('startEnd')}</div>
-            <div className="text-xs text-gray-500">{t('startEndDesc')}</div>
-          </button>
-          <button
-            onClick={() => onSelectType('process')}
-            className="text-right p-3 border border-gray-200 rounded-xl hover:border-blue-400 hover:bg-blue-50/50 transition-all"
-          >
-            <div className="font-semibold">{t('process')}</div>
-            <div className="text-xs text-gray-500">{t('processDesc')}</div>
-          </button>
-          <button
-            onClick={() => onSelectType('input')}
-            className="text-right p-3 border border-gray-200 rounded-xl hover:border-blue-400 hover:bg-blue-50/50 transition-all"
-          >
-            <div className="font-semibold">{t('inputOutput')}</div>
-            <div className="text-xs text-gray-500">{t('inputOutputDesc')}</div>
-          </button>
-          <button
-            onClick={() => onSelectType('decision')}
-            className="text-right p-3 border border-gray-200 rounded-xl hover:border-blue-400 hover:bg-blue-50/50 transition-all"
-          >
-            <div className="font-semibold">{t('decision')}</div>
-            <div className="text-xs text-gray-500">{t('decisionDesc')}</div>
-          </button>
-        </div>
-        <button
-          onClick={onClose}
-          className="mt-5 w-full py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 text-sm font-medium transition-colors"
-        >
-          {t('cancel')}
-        </button>
+    <Modal
+      title={t('selectChildType')}
+      open={isOpen}
+      onCancel={onClose}
+      footer={null}
+      width={480}
+      centered
+    >
+      <div className="grid grid-cols-2 gap-3">
+        {(Object.keys(typeConfig) as Array<keyof typeof typeConfig>).map((type) => {
+          const config = typeConfig[type]
+          return (
+            <Card
+              key={type}
+              hoverable
+              className="cursor-pointer border-gray-200 hover:border-blue-400 transition-all"
+              onClick={() => onSelectType(type)}
+              size="small"
+            >
+              <div className="flex flex-col items-center text-center p-2">
+                <div style={{ color: config.color, fontSize: 24 }}>{config.icon}</div>
+                <Text strong className="mt-2">{t(type)}</Text>
+                <Text type="secondary" className="text-xs">{config.desc}</Text>
+              </div>
+            </Card>
+          )
+        })}
       </div>
-    </div>
-  );
-};
+      <Button block onClick={onClose} className="mt-5">
+        {t('cancel')}
+      </Button>
+    </Modal>
+  )
+}

@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.2.5",
     "@hookform/resolvers": "^5.2.2",
     "@tanstack/react-query": "^5.100.10",
     "@xyflow/react": "^12.10.2",
+    "antd": "^6.4.4",
     "elkjs": "^0.11.1",
     "i18next": "^23.11.5",
     "i18next-http-backend": "^2.5.2",

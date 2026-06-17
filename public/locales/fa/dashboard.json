@@ -30,5 +30,7 @@
   "substationName": "نام پست",
   "location": "موقعیت",
   "componentCount": "تعداد قطعات",
-  "actions": "عملیات"
+  "actions": "عملیات",
+  "createNew": "ایجاد جدید",
+  "viewAll": "مشاهده همه"
 }

@@ -1,8 +1,44 @@
-// File: src/pages/HomePage.tsx
+// src/pages/Home/HomePage.tsx
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import { useAppContext } from '@/context/AppContext'
+import {
+  Card,
+  Row,
+  Col,
+  Statistic,
+  Table,
+  Button,
+  Typography,
+  Space,
+  Avatar,
+  Tag,
+  Divider,
+  Grid,
+  Badge,
+  Tooltip,
+  Flex,
+  ConfigProvider,
+  theme,
+} from 'antd'
+import {
+  NodeIndexOutlined,
+  ShareAltOutlined,
+  UserOutlined,
+  SettingOutlined,
+  ApartmentOutlined,
+  RightOutlined,
+  ThunderboltOutlined,
+  DatabaseOutlined,
+  PlusOutlined,
+  EditOutlined,
+  FolderOutlined,
+  EyeOutlined,
+} from '@ant-design/icons'
+
+const { Title, Text, Paragraph } = Typography
+const { useBreakpoint } = Grid
 
 interface DashboardStats {
   totalNodes: number
@@ -20,6 +56,9 @@ export function HomePage() {
   const { t } = useTranslation(['dashboard', 'common'])
   const navigate = useNavigate()
   const { dir } = useAppContext()
+  const screens = useBreakpoint()
+  const isRtl = dir === 'rtl'
+
   const [stats, setStats] = useState<DashboardStats>({ totalNodes: 0, totalEdges: 0 })
   const [substations, setSubstations] = useState<SubstationSummary[]>([])
   const [loading, setLoading] = useState(true)
@@ -30,20 +69,22 @@ export function HomePage() {
         const [nodesRes, edgesRes, diagramRes] = await Promise.all([
           fetch('/api/flow/nodes'),
           fetch('/api/flow/edges'),
-          fetch('/api/substation/diagram')
+          fetch('/api/substation/diagram'),
         ])
         const nodes = await nodesRes.json()
         const edges = await edgesRes.json()
         const diagram = await diagramRes.json()
+
         setStats({
           totalNodes: nodes.length,
-          totalEdges: edges.length
+          totalEdges: edges.length,
         })
+
         const substationList = diagram.substations.map((sub: any) => ({
           id: sub.id,
           name: sub.name,
           location: sub.tooltipInfo?.Location || '—',
-          componentCount: diagram.components.filter((c: any) => c.substationId === sub.id).length
+          componentCount: diagram.components.filter((c: any) => c.substationId === sub.id).length,
         }))
         setSubstations(substationList)
       } catch (error) {
@@ -55,145 +96,192 @@ export function HomePage() {
     fetchData()
   }, [])
 
+  const columns = [
+    {
+      title: t('dashboard:substationName'),
+      dataIndex: 'name',
+      key: 'name',
+      render: (text: string) => (
+        <Space>
+          <ApartmentOutlined style={{ color: '#1677ff' }} />
+          <Text strong>{text}</Text>
+        </Space>
+      ),
+    },
+    {
+      title: t('dashboard:location'),
+      dataIndex: 'location',
+      key: 'location',
+      render: (text: string) => <Text type="secondary">{text}</Text>,
+    },
+    {
+      title: t('dashboard:componentCount'),
+      dataIndex: 'componentCount',
+      key: 'componentCount',
+      render: (count: number) => <Badge count={count} showZero color="#1677ff" />,
+    },
+    {
+      title: t('dashboard:actions'),
+      key: 'action',
+      align: 'center' as const,
+      render: (_: any, record: SubstationSummary) => (
+        <Tooltip title={t('dashboard:viewDiagram')}>
+          <Button
+            type="primary"
+            shape="circle"
+            icon={<EyeOutlined />}
+            size="small"
+            onClick={() => navigate('/substation')}
+          />
+        </Tooltip>
+      ),
+    },
+  ]
+
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-6" dir={dir}>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Total Nodes & Edges Card */}
-        <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <i className="ti ti-chart-dots text-blue-600 text-xl" />
-            </div>
-            <h2 className="font-semibold text-slate-800">{t('dashboard:flowTitle')}</h2>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
+    <ConfigProvider
+      direction={dir}
+      theme={{
+        algorithm: theme.defaultAlgorithm,
+        token: {
+          fontFamily: isRtl ? 'Vazirmatn, sans-serif' : 'IBM Plex Sans, sans-serif',
+        },
+      }}
+    >
+      <div className={`p-4 md:p-6 max-w-7xl mx-auto ${isRtl ? 'font-rtl' : ''}`} dir={dir}>
+        {/* Header Section */}
+        <div className="mb-8">
+          <Flex vertical={!screens.md} justify="space-between" align={screens.md ? 'center' : 'start'} gap="middle">
             <div>
-              <div className="text-3xl font-bold text-slate-900">{stats.totalNodes}</div>
-              <div className="text-xs text-slate-500 mt-1">{t('dashboard:totalNodesLabel')}</div>
+              <Title level={2} style={{ margin: 0 }}>
+                {t('dashboard:pageTitle')}
+              </Title>
+              <Text type="secondary" style={{ fontSize: '14px' }}>
+                {t('dashboard:pageSubtitle')}
+              </Text>
             </div>
-            <div>
-              <div className="text-3xl font-bold text-slate-900">{stats.totalEdges}</div>
-              <div className="text-xs text-slate-500 mt-1">{t('dashboard:totalEdgesLabel')}</div>
-            </div>
-          </div>
+            <Space wrap>
+              <Button type="primary" icon={<PlusOutlined />} onClick={() => navigate('/flow-progress')}>
+                {t('dashboard:createNew')}
+              </Button>
+            </Space>
+          </Flex>
         </div>
 
-        {/* Operator Summary Card */}
-        <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-emerald-100 rounded-lg">
-              <i className="ti ti-user-circle text-emerald-600 text-xl" />
-            </div>
-            <h2 className="font-semibold text-slate-800">{t('dashboard:operatorSummary')}</h2>
-          </div>
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-slate-500">{t('common:name')}:</span>
-              <span className="font-medium text-slate-800">{t('common:userName')}</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-slate-500">{t('common:role')}:</span>
-              <span className="font-medium text-slate-800">{t('common:userRole')}</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-slate-500">{t('common:lastLogin')}:</span>
-              <span className="font-medium text-slate-800">2025-05-31 10:30</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-slate-500">{t('common:activeSessions')}:</span>
-              <span className="font-medium text-slate-800">1</span>
-            </div>
-          </div>
-        </div>
+        <Row gutter={[16, 16]}>
+          {/* Stats Cards */}
+          <Col xs={24} sm={12} lg={8}>
+            <Card variant="borderless" className="shadow-sm hover:shadow-md transition-shadow">
+              <Statistic
+                title={t('dashboard:flowTitle')}
+                value={stats.totalNodes + stats.totalEdges}
+                prefix={<NodeIndexOutlined style={{ color: '#1677ff' }} />}
+                styles={{ content: { color: '#1677ff' } }}
+              />
+              <Divider style={{ margin: '12px 0' }} />
+              <Flex justify="space-between">
+                <Text type="secondary" style={{ fontSize: '12px' }}>
+                  {t('dashboard:totalNodesLabel')}: <Text strong>{stats.totalNodes}</Text>
+                </Text>
+                <Text type="secondary" style={{ fontSize: '12px' }}>
+                  {t('dashboard:totalEdgesLabel')}: <Text strong>{stats.totalEdges}</Text>
+                </Text>
+              </Flex>
+            </Card>
+          </Col>
 
-        {/* Quick Actions Card */}
-        <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-amber-100 rounded-lg">
-              <i className="ti ti-clock text-amber-600 text-xl" />
-            </div>
-            <h2 className="font-semibold text-slate-800">{t('dashboard:quickActions')}</h2>
-          </div>
-          <div className="space-y-2">
-            <button
-              onClick={() => navigate('/flow-progress')}
-              className="w-full text-right px-3 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors text-sm font-medium"
+          <Col xs={24} sm={12} lg={8}>
+            <Card variant="borderless" className="shadow-sm hover:shadow-md transition-shadow h-full">
+              <Statistic
+                title={t('dashboard:substations')}
+                value={substations.length}
+                prefix={<ApartmentOutlined style={{ color: '#52c41a' }} />}
+                styles={{ content: { color: '#52c41a' } }}
+              />
+              <div className="mt-4">
+                <Tag color="green">{t('dashboard:activeSubstations')}</Tag>
+                <Tag color="default">{t('dashboard:totalComponents')}: {substations.reduce((acc, s) => acc + s.componentCount, 0)}</Tag>
+              </div>
+            </Card>
+          </Col>
+
+          <Col xs={24} sm={24} lg={8}>
+            <Card variant="borderless" className="shadow-sm hover:shadow-md transition-shadow h-full">
+              <Flex vertical gap="small" align="center" justify="center" style={{ height: '100%' }}>
+                <Avatar size={56} icon={<UserOutlined />} style={{ backgroundColor: '#e6f4ff', color: '#1677ff' }} />
+                <Title level={5} style={{ margin: 0 }}>{t('common:userName')}</Title>
+                <Text type="secondary" style={{ fontSize: '13px' }}>{t('common:userRole')}</Text>
+                <Divider style={{ margin: '8px 0' }} />
+                <Button type="text" icon={<SettingOutlined />} block>
+                  {t('common:settings')}
+                </Button>
+              </Flex>
+            </Card>
+          </Col>
+
+          {/* Quick Actions Cards */}
+          <Col span={24}>
+            <Card variant="borderless" className="shadow-sm">
+              <Flex wrap gap="middle" align="center" justify="space-between">
+                <Text strong style={{ fontSize: '15px' }}>
+                  {t('dashboard:quickActions')}
+                </Text>
+                <Space wrap size="middle">
+                  <Button
+                    type="primary"
+                    icon={<EditOutlined />}
+                    onClick={() => navigate('/flow-progress')}
+                  >
+                    {t('dashboard:editFlowchart')}
+                  </Button>
+                  <Button
+                    icon={<FolderOutlined />}
+                    onClick={() => navigate('/tree-node')}
+                  >
+                    {t('dashboard:manageTree')}
+                  </Button>
+                  <Button
+                    icon={<ApartmentOutlined />}
+                    onClick={() => navigate('/substation')}
+                  >
+                    {t('dashboard:viewDiagram')}
+                  </Button>
+                </Space>
+              </Flex>
+            </Card>
+          </Col>
+
+          {/* Substations Table */}
+          <Col span={24}>
+            <Card
+              variant="borderless"
+              className="shadow-sm"
+              title={
+                <Space>
+                  <ThunderboltOutlined style={{ color: '#1677ff' }} />
+                  <Text strong>{t('dashboard:substations')}</Text>
+                  <Tag color="blue" variant="filled">{substations.length}</Tag>
+                </Space>
+              }
+              extra={
+                <Button type="link" onClick={() => navigate('/substation')}>
+                  {t('dashboard:viewAll')} <RightOutlined />
+                </Button>
+              }
             >
-              ✏️ {t('dashboard:editFlowchart')}
-            </button>
-            <button
-              onClick={() => navigate('/tree-node')}
-              className="w-full text-right px-3 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors text-sm font-medium"
-            >
-              📁 {t('dashboard:manageTree')}
-            </button>
-            <button
-              onClick={() => navigate('/substation')}
-              className="w-full text-right px-3 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors text-sm font-medium"
-            >
-              ⚡ {t('dashboard:viewDiagram')}
-            </button>
-          </div>
-        </div>
+              <Table
+                dataSource={substations}
+                columns={columns}
+                rowKey="id"
+                loading={loading}
+                pagination={{ pageSize: 5, showSizeChanger: true, pageSizeOptions: ['5', '10', '20'] }}
+                size="middle"
+                scroll={{ x: 'max-content' }}
+              />
+            </Card>
+          </Col>
+        </Row>
       </div>
-
-      {/* Substations Table */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <i className="ti ti-topology-ring text-blue-500 text-lg" />
-            <h2 className="font-semibold text-slate-800">{t('dashboard:substations')}</h2>
-          </div>
-          <span className="text-xs text-slate-400">{substations.length} {t('dashboard:substationCount')}</span>
-        </div>
-        {loading ? (
-          <div className="p-8 text-center text-slate-400">{t('common:loading')}</div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
-                <tr>
-                  <th className={`px-5 py-3 font-semibold text-slate-600 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                    {t('dashboard:substationName')}
-                  </th>
-                  <th className={`px-5 py-3 font-semibold text-slate-600 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                    {t('dashboard:location')}
-                  </th>
-                  <th className={`px-5 py-3 font-semibold text-slate-600 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                    {t('dashboard:componentCount')}
-                  </th>
-                  <th className={`px-5 py-3 font-semibold text-slate-600 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                    {t('dashboard:actions')}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {substations.map((sub) => (
-                  <tr key={sub.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                    <td className={`px-5 py-3 font-medium text-slate-800 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                      {sub.name}
-                    </td>
-                    <td className={`px-5 py-3 text-slate-600 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                      {sub.location}
-                    </td>
-                    <td className={`px-5 py-3 text-slate-600 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                      {sub.componentCount}
-                    </td>
-                    <td className={`px-5 py-3 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                      <button
-                        onClick={() => navigate('/substation')}
-                        className="text-xs px-3 py-1 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors"
-                      >
-                        {t('dashboard:viewDiagram')}
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-    </div>
+    </ConfigProvider>
   )
 }

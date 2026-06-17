@@ -1,7 +1,12 @@
+// src/pages/FlowProgress/components/NodeTree.tsx
 import { type Node, type Edge } from '@xyflow/react'
 import { useState } from 'react'
 import { useAppContext } from '@/context/AppContext'
 import { useTranslation } from 'react-i18next'
+import { Button, Flex, Typography, Tag, Space } from 'antd'
+import { PlusOutlined, EditOutlined, DeleteOutlined, CaretRightOutlined, CaretDownOutlined } from '@ant-design/icons'
+
+const { Text } = Typography
 
 interface NodeTreeProps {
   nodes: Node[]
@@ -42,17 +47,25 @@ const TreeNodeItem = ({
     ? { paddingRight: `${level * 20 + 8}px` }
     : { paddingLeft: `${level * 20 + 8}px` }
 
+  const typeColor = {
+    start: 'blue',
+    process: 'green',
+    input: 'purple',
+    decision: 'orange',
+  }[node.type as string] || 'default'
+
   return (
     <div>
       <div className="py-1.5 border-b border-gray-100" style={indentStyle}>
-        <div className="flex items-center gap-2">
+        <Flex align="center" gap="small" justify={isRtl ? 'end' : 'start'}>
           {children.length > 0 ? (
-            <button
+            <Button
+              type="text"
+              size="small"
+              icon={isExpanded ? <CaretDownOutlined /> : <CaretRightOutlined />}
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-gray-400 w-5 flex-shrink-0 text-center cursor-pointer hover:text-gray-600"
-            >
-              {isExpanded ? '▾' : '▸'}
-            </button>
+              className="!w-5 !h-5 !p-0 !flex items-center justify-center text-gray-400"
+            />
           ) : (
             <span className="w-5 flex-shrink-0 text-gray-300 text-center">·</span>
           )}
@@ -61,30 +74,33 @@ const TreeNodeItem = ({
             onClick={() => onEditNode(node.id)}
           >
             <div className="text-sm font-medium text-gray-800 truncate text-end">{label}</div>
-            <div className="text-[11px] text-gray-400 text-end">({typeLabel})</div>
+            <div className="text-[11px] text-gray-400 text-end">
+              <Tag color={typeColor} size="small">{typeLabel}</Tag>
+            </div>
           </div>
-          <div className="flex gap-1 flex-shrink-0">
-            <button
+          <Space size="small">
+            <Button
+              type="primary"
+              size="small"
+              icon={<PlusOutlined />}
               onClick={() => onAddChild(node.id)}
-              title={t('addChild')}
-              className="text-[11px] px-2 py-0.5 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              +
-            </button>
-            <button
+              title={t('common:addChild')}
+            />
+            <Button
+              size="small"
+              icon={<EditOutlined />}
               onClick={() => onEditNode(node.id)}
-              className="text-[11px] px-2 py-0.5 bg-emerald-500 text-white rounded hover:bg-emerald-600"
-            >
-              {t('edit')}
-            </button>
-            <button
+              title={t('common:edit')}
+            />
+            <Button
+              danger
+              size="small"
+              icon={<DeleteOutlined />}
               onClick={() => onDeleteNode(node.id)}
-              className="text-[11px] px-2 py-0.5 bg-red-500 text-white rounded hover:bg-red-600"
-            >
-              {t('delete')}
-            </button>
-          </div>
-        </div>
+              title={t('common:delete')}
+            />
+          </Space>
+        </Flex>
       </div>
       {isExpanded && children.length > 0 && (
         <div>
@@ -109,7 +125,7 @@ const TreeNodeItem = ({
 
 export const NodeTree = ({ nodes, edges, onAddChild, onEditNode, onDeleteNode }: NodeTreeProps) => {
   const { dir } = useAppContext()
-  const { t } = useTranslation('flow')
+  const { t } = useTranslation(['flow', 'common'])
   const isRtl = dir === 'rtl'
   const rootNodes = nodes.filter((n) => !n.parentId)
 
@@ -120,7 +136,10 @@ export const NodeTree = ({ nodes, edges, onAddChild, onEditNode, onDeleteNode }:
   return (
     <div className="overflow-y-auto text-end" dir={dir}>
       <div className="text-[11px] text-gray-400 border-b border-gray-100 pb-1 mb-2 px-1">
-        {t('nodesCount')}: {nodes.length} | {t('edgesCount')}: {edges.length}
+        <Space split="|">
+          <Text type="secondary">{t('flow:nodesCount')}: {nodes.length}</Text>
+          <Text type="secondary">{t('flow:edgesCount')}: {edges.length}</Text>
+        </Space>
       </div>
       {rootNodes.map((node) => (
         <TreeNodeItem

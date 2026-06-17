@@ -1,9 +1,14 @@
+// src/pages/FlowProgress/components/Sidebar.tsx
 import { useState } from 'react'
 import { type Node, type Edge } from '@xyflow/react'
 import { NodeTree } from './NodeTree'
 import { SelectChildTypeModal } from './SelectChildTypeModal'
 import { useAppContext } from '@/context/AppContext'
 import { useTranslation } from 'react-i18next'
+import { Card, Button, Select, Typography, Flex, Badge } from 'antd'
+import { PlusOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+
+const { Text } = Typography
 
 interface SidebarProps {
   nodes: Node[]
@@ -31,7 +36,16 @@ export const Sidebar = ({
   const [showTypeModal, setShowTypeModal] = useState(false)
   const [pendingParentId, setPendingParentId] = useState<string | null>(null)
 
-  const handleAddNode = () => onAddNode(selectedNodeType)
+  const edgeStyle = isRtl ? { right: 0 } : { left: 0 }
+  const sideBarWidth = isExpanded ? 'w-[30%]' : 'w-[3.5%]'
+  const sideBarHeight = !isExpanded ? 'h-[5%]' : ''
+
+  const typeOptions = [
+    { value: 'start', label: t('flow:startEnd') },
+    { value: 'process', label: t('flow:process') },
+    { value: 'input', label: t('flow:inputOutput') },
+    { value: 'decision', label: t('flow:decision') },
+  ]
 
   const handleAddChildClick = (parentId: string) => {
     setPendingParentId(parentId)
@@ -49,67 +63,57 @@ export const Sidebar = ({
     setPendingParentId(null)
   }
 
-  // Sidebar position: right in RTL, left in LTR
-  const edgeStyle = isRtl ? { right: 0 } : { left: 0 }
-  const sideBar = !isExpanded ? 'h-[5%] w-[3.5%]' : 'w-[30%]';
+  const handleAddNode = () => onAddNode(selectedNodeType)
 
   return (
     <>
       <div
         dir={dir}
-        className={`absolute bg-white shadow-xl rounded-xl border border-gray-200 transition-all duration-300 ease-in-out flex flex-col z-10 overflow-hidden ${sideBar}`}
+        className={`absolute bg-white shadow-xl rounded-xl border border-gray-200 transition-all duration-300 ease-in-out flex flex-col z-10 overflow-hidden ${sideBarWidth} ${sideBarHeight}`}
         style={{
           top: 12,
           bottom: 12,
           ...edgeStyle,
         }}
       >
-        {/* Toggle button */}
-        <button
+        <Button
+          type="text"
+          icon={isExpanded ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
           onClick={() => setIsExpanded(!isExpanded)}
-          className="absolute top-2 w-7 h-7 bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors text-xs z-20 rounded-full shadow-md"
+          className="absolute top-2 w-7 h-7 !flex items-center justify-center z-20 shadow-md"
           style={isRtl
-            ? { right: isExpanded ? 'auto' : 12, left: isExpanded ? + 14 : 'auto' }
-            : { left: isExpanded ? 'auto' : 12, right: isExpanded ? + 14 : 'auto' }
+            ? { right: isExpanded ? 'auto' : 12, left: isExpanded ? 14 : 'auto' }
+            : { left: isExpanded ? 'auto' : 12, right: isExpanded ? 14 : 'auto' }
           }
           aria-label={isExpanded ? t('flow:sidebarCollapse') : t('flow:sidebarExpand')}
-        >
-          {isRtl
-            ? (isExpanded ? '→' : '←')
-            : (isExpanded ? '←' : '→')
-          }
-        </button>
+        />
 
         {isExpanded && (
           <>
-            {/* Add node card */}
             <div className="p-4 border-b border-gray-100 flex-shrink-0">
-              <h3 className="font-semibold text-gray-800 mb-3 text-sm">{t('flow:addNode')}</h3>
+              <Text strong className="block mb-3 text-sm">{t('flow:addNode')}</Text>
               <div className="mb-3">
-                <label className="text-xs text-gray-500 block mb-1">{t('flow:nodeType')}</label>
-                <select
+                <Text type="secondary" className="text-xs block mb-1">{t('flow:nodeType')}</Text>
+                <Select
                   value={selectedNodeType}
-                  onChange={(e) => setSelectedNodeType(e.target.value as any)}
-                  className="w-full p-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  dir={dir}
-                >
-                  <option value="start">{t('flow:startEnd')}</option>
-                  <option value="process">{t('flow:process')}</option>
-                  <option value="input">{t('flow:inputOutput')}</option>
-                  <option value="decision">{t('flow:decision')}</option>
-                </select>
+                  onChange={(value) => setSelectedNodeType(value)}
+                  options={typeOptions}
+                  className="w-full"
+                  size="middle"
+                />
               </div>
-              <button
+              <Button
+                type="primary"
+                icon={<PlusOutlined />}
                 onClick={handleAddNode}
-                className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium transition-colors shadow-sm"
+                block
               >
                 {t('flow:addNodeButton')}
-              </button>
+              </Button>
             </div>
 
-            {/* Node hierarchy card */}
             <div className="flex-1 flex flex-col p-4 overflow-hidden min-h-0">
-              <h3 className="font-semibold text-gray-800 mb-3 text-sm">{t('flow:nodeHierarchy')}</h3>
+              <Text strong className="block mb-3 text-sm">{t('flow:nodeHierarchy')}</Text>
               <div className="flex-1 overflow-y-auto rounded-lg bg-gray-50 p-2">
                 <NodeTree
                   nodes={nodes}
@@ -120,8 +124,8 @@ export const Sidebar = ({
                 />
               </div>
               <div className="mt-3 pt-2 border-t border-gray-100 text-xs text-gray-400 flex justify-between">
-                <span>{t('flow:nodesCount')}: {nodes.length}</span>
-                <span>{t('flow:edgesCount')}: {edges.length}</span>
+                <span><Badge count={nodes.length} showZero color="blue" /> {t('flow:nodesCount')}</span>
+                <span><Badge count={edges.length} showZero color="green" /> {t('flow:edgesCount')}</span>
               </div>
             </div>
           </>

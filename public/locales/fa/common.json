@@ -79,5 +79,6 @@
   "lastLogin": "آخرین ورود",
   "activeSessions": "نشست فعال",
   "profile": "پروفایل",
-  "logout": "خروج"
+  "logout": "خروج",
+  "addChild": "افزودن زیرمجموعه"
 }
